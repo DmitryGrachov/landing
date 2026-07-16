@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Boxes } from "lucide-react";
 
 type Panel = {
   id: string;
@@ -7,7 +8,6 @@ type Panel = {
   delay: number;
   anchor: [number, number];
   content: React.ReactNode;
-  className?: string;
 };
 
 const bars = [42, 68, 50, 88, 60];
@@ -20,7 +20,7 @@ const panels: Panel[] = [
     delay: 0.2,
     anchor: [50, 50],
     content: (
-      <div className="w-[150px] min-[640px]:w-[176px] min-[768px]:w-[192px] min-[1536px]:w-[224px] min-[1920px]:w-[256px]">
+      <div className="w-full">
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-[10.5px] font-medium tracking-wide text-ink-dim">ВЫБОР КВАРТИР</span>
         </div>
@@ -56,7 +56,7 @@ const panels: Panel[] = [
     delay: 0.35,
     anchor: [50, 50],
     content: (
-      <div className="w-[150px] min-[640px]:w-[176px] min-[768px]:w-[192px] min-[1536px]:w-[224px] min-[1920px]:w-[256px]">
+      <div className="w-full">
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-[10.5px] font-medium tracking-wide text-ink-dim">CRM · ВОРОНКА</span>
         </div>
@@ -83,7 +83,7 @@ const panels: Panel[] = [
     delay: 0.5,
     anchor: [50, 50],
     content: (
-      <div className="w-[150px] min-[640px]:w-[176px] min-[768px]:w-[192px] min-[1536px]:w-[224px] min-[1920px]:w-[256px]">
+      <div className="w-full">
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-[10.5px] font-medium tracking-wide text-ink-dim">UE5-ТУР</span>
           <span className="flex items-center gap-1 rounded-full bg-red-500/15 px-1.5 py-0.5 text-[8.5px] font-medium text-red-300">
@@ -108,7 +108,7 @@ const panels: Panel[] = [
     delay: 0.65,
     anchor: [50, 50],
     content: (
-      <div className="w-[150px] min-[640px]:w-[176px] min-[768px]:w-[192px] min-[1536px]:w-[224px] min-[1920px]:w-[256px]">
+      <div className="w-full">
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-[10.5px] font-medium tracking-wide text-ink-dim">ЛИЧНЫЙ КАБИНЕТ</span>
         </div>
@@ -131,9 +131,39 @@ const panels: Panel[] = [
   },
 ];
 
-export default function HeroVisual() {
+function MobileHeroVisual() {
   return (
-    <div className="relative mx-auto aspect-[1/0.92] w-full max-w-[640px] min-[1536px]:max-w-[760px] min-[1920px]:max-w-[880px] min-[2560px]:max-w-[1000px]">
+    <div className="mx-auto flex w-full max-w-[420px] flex-col items-center min-[1024px]:hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="glass-strong flex items-center gap-2.5 rounded-2xl px-5 py-3"
+      >
+        <Boxes className="h-4 w-4 text-cyan" />
+        <span className="text-[13.5px] font-medium text-white">Единая цифровая сцена</span>
+      </motion.div>
+      <div className="h-8 w-px bg-gradient-to-b from-white/30 to-transparent" />
+      <div className="grid w-full grid-cols-2 gap-3">
+        {panels.map((p, i) => (
+          <motion.div
+            key={p.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="glass rounded-2xl p-4"
+          >
+            {p.content}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DesktopHeroVisual() {
+  return (
+    <div className="relative mx-auto hidden aspect-[1/0.92] w-full max-w-[640px] min-[1024px]:block min-[1536px]:max-w-[760px] min-[1920px]:max-w-[880px] min-[2560px]:max-w-[1000px]">
       <svg
         className="absolute inset-0 h-full w-full overflow-visible"
         viewBox="0 0 100 100"
@@ -174,7 +204,7 @@ export default function HeroVisual() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="relative flex h-[168px] w-[168px] items-center justify-center min-[640px]:h-[200px] min-[640px]:w-[200px] min-[1536px]:h-[240px] min-[1536px]:w-[240px] min-[1920px]:h-[280px] min-[1920px]:w-[280px]">
+        <div className="relative flex h-[200px] w-[200px] items-center justify-center min-[1536px]:h-[240px] min-[1536px]:w-[240px] min-[1920px]:h-[280px] min-[1920px]:w-[280px]">
           <div className="absolute h-full w-full rounded-full bg-gradient-to-br from-indigo/25 via-violet/20 to-cyan/10 blur-2xl" />
           <motion.svg
             viewBox="0 0 100 100"
@@ -200,7 +230,7 @@ export default function HeroVisual() {
       {panels.map((p) => (
         <motion.div
           key={p.id}
-          className="glass absolute rounded-2xl p-3.5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)] min-[1536px]:p-4 min-[1920px]:p-5"
+          className="glass absolute w-[192px] rounded-2xl p-3.5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)] min-[1536px]:w-[224px] min-[1536px]:p-4 min-[1920px]:w-[256px] min-[1920px]:p-5"
           style={{ left: `${p.x}%`, top: `${p.y}%`, transform: "translate(-50%, -50%)" }}
           initial={{ opacity: 0, y: 24, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -215,5 +245,14 @@ export default function HeroVisual() {
         </motion.div>
       ))}
     </div>
+  );
+}
+
+export default function HeroVisual() {
+  return (
+    <>
+      <MobileHeroVisual />
+      <DesktopHeroVisual />
+    </>
   );
 }
