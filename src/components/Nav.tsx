@@ -1,0 +1,69 @@
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Container from "./Container";
+import Logo from "./Logo";
+import Button from "./Button";
+
+const links = [
+  { label: "Экосистема", href: "#ecosystem" },
+  { label: "Почему мы", href: "#why" },
+  { label: "Эффект", href: "#impact" },
+  { label: "Калькулятор", href: "#roi" },
+  { label: "Внедрение", href: "#pricing" },
+  { label: "Вопросы", href: "#faq" },
+];
+
+export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <motion.header
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-x-0 top-0 z-50"
+    >
+      <Container className="pt-4">
+        <div
+          className={`flex items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300 ${
+            scrolled ? "glass-strong shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : "border border-transparent"
+          }`}
+        >
+          <a href="#top" className="shrink-0">
+            <Logo />
+          </a>
+          <nav className="hidden items-center gap-1 lg:flex">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="rounded-full px-3.5 py-2 text-[13.5px] font-medium text-ink-dim transition-colors hover:bg-white/[0.06] hover:text-white"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            <a href="#roi" className="hidden sm:block">
+              <Button variant="secondary" size="md">
+                Посчитать эффект
+              </Button>
+            </a>
+            <a href="#final-cta">
+              <Button variant="primary" size="md">
+                Запросить демо
+              </Button>
+            </a>
+          </div>
+        </div>
+      </Container>
+    </motion.header>
+  );
+}
