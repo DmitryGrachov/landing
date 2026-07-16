@@ -25,7 +25,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-7 max-w-[880px] text-[38px] font-semibold leading-[1.08] text-white min-[640px]:text-[54px] min-[768px]:text-[64px] min-[1536px]:max-w-[1080px] min-[1536px]:text-[78px] min-[1920px]:max-w-[1240px] min-[1920px]:text-[92px] min-[2560px]:text-[104px]"
+          className="mt-7 max-w-[1040px] text-[38px] font-semibold leading-[1.08] text-white min-[640px]:text-[54px] min-[768px]:text-[64px] min-[1536px]:max-w-[1220px] min-[1536px]:text-[78px] min-[1920px]:max-w-[1380px] min-[1920px]:text-[92px] min-[2560px]:text-[104px]"
         >
           Ускоряем продажи новостроек через <span className="text-gradient">единую цифровую экосистему</span>
         </motion.h1>
@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-ink-dim min-[640px]:text-[19px] min-[1536px]:max-w-[720px] min-[1536px]:text-[22px] min-[1920px]:max-w-[800px] min-[1920px]:text-[25px]"
+          className="mt-6 max-w-[700px] text-[17px] leading-relaxed text-ink-dim min-[640px]:text-[19px] min-[1536px]:max-w-[840px] min-[1536px]:text-[22px] min-[1920px]:max-w-[920px] min-[1920px]:text-[25px]"
         >
           Создаём визуализацию, видео, сайт проекта, интерактивный выбор квартир, UE5-презентацию и CRM-аналитику на базе одного цифрового объекта.
         </motion.p>
@@ -43,7 +43,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 max-w-[640px] text-[14.5px] leading-relaxed text-ink-faint min-[640px]:text-[15px] min-[1536px]:max-w-[760px] min-[1536px]:text-[17px] min-[1920px]:max-w-[840px] min-[1920px]:text-[19px]"
+          className="mt-4 max-w-[760px] text-[14.5px] leading-relaxed text-ink-faint min-[640px]:text-[15px] min-[1536px]:max-w-[900px] min-[1536px]:text-[17px] min-[1920px]:max-w-[1000px] min-[1920px]:text-[19px]"
         >
           Мы объединяем маркетинг, продажи и аналитику в одну систему. Покупатель проходит путь от первого знакомства с ЖК до выбора квартиры, а отдел продаж получает не просто заявку, а контекст: чем интересовался клиент, какие лоты смотрел, что сохранял и на каком этапе принял решение.
         </motion.p>

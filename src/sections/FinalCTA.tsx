@@ -17,7 +17,7 @@ export default function FinalCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative mx-auto max-w-[640px] text-[32px] font-semibold leading-tight text-white min-[640px]:text-[44px] min-[1536px]:max-w-[760px] min-[1536px]:text-[54px]"
+              className="relative mx-auto max-w-[760px] text-[32px] font-semibold leading-tight text-white min-[640px]:text-[44px] min-[1536px]:max-w-[880px] min-[1536px]:text-[54px]"
             >
               Покажем, как это работает на вашем проекте
             </motion.h2>
@@ -26,7 +26,7 @@ export default function FinalCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative mx-auto mt-5 max-w-[480px] text-[16px] text-ink-dim min-[1536px]:max-w-[560px] min-[1536px]:text-[19px]"
+              className="relative mx-auto mt-5 max-w-[560px] text-[16px] text-ink-dim min-[1536px]:max-w-[640px] min-[1536px]:text-[19px]"
             >
               Сначала демонстрация, затем расчёт эффекта, потом запуск выбранных модулей.
             </motion.p>

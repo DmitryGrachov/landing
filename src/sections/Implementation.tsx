@@ -34,7 +34,7 @@ export default function Implementation() {
           subtitle="Можно начать с одного блока, развить проект поэтапно или запустить всю экосистему сразу."
         />
 
-        <Reveal delay={0.1} className="mt-6 max-w-[600px] text-center min-[1536px]:max-w-[720px]">
+        <Reveal delay={0.1} className="mt-6 max-w-[700px] text-center min-[1536px]:max-w-[820px]">
           <p className="text-[14.5px] leading-relaxed text-ink-faint min-[1536px]:text-[16.5px]">
             Такой подход снижает порог входа и даёт возможность выбрать темп внедрения в зависимости от готовности девелопера.
           </p>

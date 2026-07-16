@@ -19,7 +19,7 @@ export default function Comparison() {
           subtitle="Клиент смотрит материалы, уходит и возвращается уже без контекста. Офис продаж начинает диалог заново."
         />
 
-        <Reveal delay={0.1} className="mt-8 max-w-[640px] text-center min-[1536px]:max-w-[760px]">
+        <Reveal delay={0.1} className="mt-8 max-w-[760px] text-center min-[1536px]:max-w-[880px]">
           <p className="text-[15px] leading-relaxed text-ink-dim min-[1536px]:text-[17px]">
             В классической схеме рендеры, сайт, презентация, туры и CRM существуют отдельно друг от друга. Клиенту приходится снова искать понравившиеся варианты, а менеджеру — заново выяснять интересы и потребности. В результате теряются лиды, время и темп сделки.
           </p>

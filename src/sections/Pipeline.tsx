@@ -35,7 +35,7 @@ export default function Pipeline() {
           subtitle="Из одного объекта создаём все цифровые инструменты: от визуализации до передачи интересов в CRM."
         />
 
-        <Reveal delay={0.1} className="mt-6 max-w-[640px] text-center min-[1536px]:max-w-[760px]">
+        <Reveal delay={0.1} className="mt-6 max-w-[760px] text-center min-[1536px]:max-w-[880px]">
           <p className="text-[15px] leading-relaxed text-ink-dim min-[1536px]:text-[17px]">
             Мы не делаем набор разрозненных материалов. Мы строим единую цифровую сцену проекта, из которой рождаются рендеры, видео, сайт, интерактивный макет, UE5-демо и аналитика покупателя. Это позволяет использовать один контентный слой во всех каналах продаж.
           </p>
@@ -76,7 +76,7 @@ export default function Pipeline() {
           </div>
         </div>
 
-        <Reveal delay={0.3} className="mt-10 max-w-[640px] text-center min-[1536px]:max-w-[760px]">
+        <Reveal delay={0.3} className="mt-10 max-w-[760px] text-center min-[1536px]:max-w-[880px]">
           <div className="flex flex-col items-center gap-2 text-[13.5px] text-ink-faint min-[640px]:flex-row min-[640px]:justify-center min-[1536px]:text-[15px]">
             <span>Что получил отдел продаж</span>
             <ArrowRight className="hidden h-3.5 w-3.5 min-[640px]:block" />

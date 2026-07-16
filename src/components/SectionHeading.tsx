@@ -26,13 +26,13 @@ export default function SectionHeading({
         </Reveal>
       )}
       <Reveal delay={0.05}>
-        <h2 className="max-w-[720px] text-[32px] font-semibold leading-[1.15] text-white min-[640px]:text-[40px] min-[768px]:text-[48px] min-[1536px]:max-w-[840px] min-[1536px]:text-[56px] min-[1920px]:max-w-[960px] min-[1920px]:text-[64px]">
+        <h2 className="max-w-[920px] text-[32px] font-semibold leading-[1.15] text-white min-[640px]:text-[40px] min-[768px]:text-[48px] min-[1536px]:max-w-[1080px] min-[1536px]:text-[56px] min-[1920px]:max-w-[1220px] min-[1920px]:text-[64px]">
           {title}
         </h2>
       </Reveal>
       {subtitle && (
         <Reveal delay={0.1}>
-          <p className="max-w-[560px] text-[16px] leading-relaxed text-ink-dim min-[768px]:text-[17px] min-[1536px]:max-w-[660px] min-[1536px]:text-[20px] min-[1920px]:max-w-[720px] min-[1920px]:text-[22px]">
+          <p className="max-w-[680px] text-[16px] leading-relaxed text-ink-dim min-[768px]:text-[17px] min-[1536px]:max-w-[800px] min-[1536px]:text-[20px] min-[1920px]:max-w-[880px] min-[1920px]:text-[22px]">
             {subtitle}
           </p>
         </Reveal>

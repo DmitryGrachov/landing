@@ -23,7 +23,7 @@ export default function Impact() {
           subtitle="Не только красиво, но и измеримо."
         />
 
-        <Reveal delay={0.1} className="mt-6 max-w-[640px] text-center min-[1536px]:max-w-[760px]">
+        <Reveal delay={0.1} className="mt-6 max-w-[760px] text-center min-[1536px]:max-w-[880px]">
           <p className="text-[15px] leading-relaxed text-ink-dim min-[1536px]:text-[17px]">
             Для девелопера важно понимать, что даёт каждый модуль по отдельности и что меняется при полной интеграции. Поэтому мы считаем эффект в разрезе скорости продаж, глубины воронки, качества лида и нагрузки на менеджеров.
           </p>
