@@ -26,7 +26,7 @@ const tiers = [
 
 export default function Implementation() {
   return (
-    <section id="pricing" className="relative py-28 sm:py-36">
+    <section id="pricing" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
           eyebrow="Внедрение"
@@ -34,22 +34,22 @@ export default function Implementation() {
           subtitle="Можно начать с одного блока, развить проект поэтапно или запустить всю экосистему сразу."
         />
 
-        <Reveal delay={0.1} className="mt-6 max-w-[600px] text-center">
-          <p className="text-[14.5px] leading-relaxed text-ink-faint">
+        <Reveal delay={0.1} className="mt-6 max-w-[600px] text-center min-[1536px]:max-w-[720px]">
+          <p className="text-[14.5px] leading-relaxed text-ink-faint min-[1536px]:text-[16.5px]">
             Такой подход снижает порог входа и даёт возможность выбрать темп внедрения в зависимости от готовности девелопера.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid w-full grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="mt-12 grid w-full grid-cols-1 gap-5 min-[1024px]:grid-cols-3 min-[1536px]:gap-7">
           {tiers.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.08} className="h-full">
               <div
-                className={`relative flex h-full flex-col rounded-3xl p-7 ${
+                className={`relative flex h-full flex-col rounded-3xl p-7 min-[1536px]:p-9 ${
                   t.featured ? "glass-strong ring-1 ring-white/20" : "panel"
                 }`}
               >
-                <div className="text-[18px] font-medium text-white">{t.name}</div>
-                <p className="mt-3 flex-1 text-[14px] leading-relaxed text-ink-dim">{t.tagline}</p>
+                <div className="text-[18px] font-medium text-white min-[1536px]:text-[21px]">{t.name}</div>
+                <p className="mt-3 flex-1 text-[14px] leading-relaxed text-ink-dim min-[1536px]:text-[16px]">{t.tagline}</p>
 
                 <a href="#final-cta" className="mt-8">
                   <Button variant={t.featured ? "primary" : "secondary"} className="w-full">

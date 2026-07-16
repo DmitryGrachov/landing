@@ -33,7 +33,7 @@ const audiences = [
 
 export default function Audiences() {
   return (
-    <section className="relative py-28 sm:py-36">
+    <section className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
           eyebrow="Для кого это"
@@ -41,15 +41,15 @@ export default function Audiences() {
           subtitle="Разные участники процесса видят в системе свою ценность."
         />
 
-        <div className="mt-16 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid w-full grid-cols-1 gap-4 min-[640px]:grid-cols-2 min-[1024px]:grid-cols-3 min-[1536px]:gap-6">
           {audiences.map((a, i) => (
             <Reveal key={a.title} delay={i * 0.06}>
-              <div className="panel group h-full rounded-2xl p-6 transition-colors hover:bg-white/[0.07]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo/25 to-violet/15">
-                  <a.icon className="h-5 w-5 text-white" strokeWidth={1.75} />
+              <div className="panel group h-full rounded-2xl p-6 transition-colors hover:bg-white/[0.07] min-[1536px]:p-8">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo/25 to-violet/15 min-[1536px]:h-14 min-[1536px]:w-14">
+                  <a.icon className="h-5 w-5 text-white min-[1536px]:h-6 min-[1536px]:w-6" strokeWidth={1.75} />
                 </div>
-                <div className="mt-5 text-[16px] font-medium text-white">{a.title}</div>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink-faint">{a.desc}</p>
+                <div className="mt-5 text-[16px] font-medium text-white min-[1536px]:mt-6 min-[1536px]:text-[19px]">{a.title}</div>
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-faint min-[1536px]:text-[16px]">{a.desc}</p>
               </div>
             </Reveal>
           ))}

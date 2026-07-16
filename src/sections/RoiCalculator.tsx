@@ -26,8 +26,8 @@ function Slider({ label, value, min, max, step, onChange, format }: SliderProps)
   return (
     <div>
       <div className="flex items-center justify-between">
-        <span className="text-[13.5px] font-medium text-ink-dim">{label}</span>
-        <span className="text-[14px] font-semibold text-white">{format(value)}</span>
+        <span className="text-[13.5px] font-medium text-ink-dim min-[1536px]:text-[15px]">{label}</span>
+        <span className="text-[14px] font-semibold text-white min-[1536px]:text-[15.5px]">{format(value)}</span>
       </div>
       <input
         type="range"
@@ -69,7 +69,7 @@ export default function RoiCalculator() {
   }, [units, price, financing, conversion, period]);
 
   return (
-    <section id="roi" className="relative py-28 sm:py-36">
+    <section id="roi" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading eyebrow="Калькулятор" title="Калькулятор эффекта" />
 
@@ -81,9 +81,9 @@ export default function RoiCalculator() {
           ))}
         </Reveal>
 
-        <div className="mt-12 grid w-full grid-cols-1 gap-5 lg:grid-cols-[minmax(0,380px)_1fr]">
+        <div className="mt-12 grid w-full grid-cols-1 gap-5 min-[1024px]:grid-cols-[minmax(0,380px)_1fr] min-[1536px]:gap-7 min-[1536px]:grid-cols-[minmax(0,440px)_1fr]">
           <Reveal className="h-full">
-            <div className="glass flex h-full flex-col gap-7 rounded-3xl p-7">
+            <div className="glass flex h-full flex-col gap-7 rounded-3xl p-7 min-[1536px]:gap-8 min-[1536px]:p-9">
               <Slider
                 label="Количество квартир"
                 value={units}
@@ -133,40 +133,40 @@ export default function RoiCalculator() {
           </Reveal>
 
           <Reveal delay={0.1} className="h-full">
-            <div className="glass-strong relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl p-7">
+            <div className="glass-strong relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl p-7 min-[1536px]:gap-6 min-[1536px]:p-9">
               <div className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-gradient-to-br from-indigo/30 to-cyan/10 blur-3xl" />
 
               <div className="relative flex items-center justify-between">
-                <span className="text-[13px] font-medium uppercase tracking-wide text-ink-faint">
+                <span className="text-[13px] font-medium uppercase tracking-wide text-ink-faint min-[1536px]:text-[14.5px]">
                   Общая стоимость проекта
                 </span>
                 <Sparkles className="h-4 w-4 text-cyan" />
               </div>
-              <div className="relative text-[34px] font-semibold text-white sm:text-[40px]">
+              <div className="relative text-[34px] font-semibold text-white min-[640px]:text-[40px] min-[1536px]:text-[48px]">
                 {fmtMoney(results.inventoryValue)}
               </div>
 
-              <div className="relative grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+              <div className="relative grid grid-cols-1 gap-3 min-[640px]:grid-cols-3 min-[1536px]:gap-4">
+                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 min-[1536px]:p-6">
                   <Clock className="h-4 w-4 text-cyan" />
-                  <div className="mt-3 text-[22px] font-semibold text-white">
+                  <div className="mt-3 text-[22px] font-semibold text-white min-[1536px]:text-[26px]">
                     {results.monthsSaved.toFixed(1)} мес.
                   </div>
-                  <div className="mt-1 text-[12.5px] text-ink-faint">Быстрее выход на продажу</div>
+                  <div className="mt-1 text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">Быстрее выход на продажу</div>
                 </div>
-                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 min-[1536px]:p-6">
                   <TrendingUp className="h-4 w-4 text-cyan" />
-                  <div className="mt-3 text-[22px] font-semibold text-white">
+                  <div className="mt-3 text-[22px] font-semibold text-white min-[1536px]:text-[26px]">
                     {fmtCompact(results.additionalRevenue)}
                   </div>
-                  <div className="mt-1 text-[12.5px] text-ink-faint">Дополнительная выручка</div>
+                  <div className="mt-1 text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">Дополнительная выручка</div>
                 </div>
-                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 min-[1536px]:p-6">
                   <PiggyBank className="h-4 w-4 text-cyan" />
-                  <div className="mt-3 text-[22px] font-semibold text-white">
+                  <div className="mt-3 text-[22px] font-semibold text-white min-[1536px]:text-[26px]">
                     {fmtCompact(results.financingSaved)}
                   </div>
-                  <div className="mt-1 text-[12.5px] text-ink-faint">Экономия на финансировании</div>
+                  <div className="mt-1 text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">Экономия на финансировании</div>
                 </div>
               </div>
 
@@ -174,13 +174,13 @@ export default function RoiCalculator() {
                 key={Math.round(results.totalImpact)}
                 initial={{ opacity: 0.4 }}
                 animate={{ opacity: 1 }}
-                className="relative mt-1 flex flex-1 flex-col justify-center rounded-2xl bg-gradient-to-br from-indigo/20 via-violet/15 to-cyan/10 p-6"
+                className="relative mt-1 flex flex-1 flex-col justify-center rounded-2xl bg-gradient-to-br from-indigo/20 via-violet/15 to-cyan/10 p-6 min-[1536px]:p-8"
               >
-                <span className="text-[13px] font-medium text-ink-dim">Итоговый эффект</span>
-                <span className="mt-1 text-[30px] font-semibold text-gradient sm:text-[36px]">
+                <span className="text-[13px] font-medium text-ink-dim min-[1536px]:text-[14.5px]">Итоговый эффект</span>
+                <span className="mt-1 text-[30px] font-semibold text-gradient min-[640px]:text-[36px] min-[1536px]:text-[44px]">
                   {fmtMoney(results.totalImpact)}
                 </span>
-                <span className="mt-1 text-[12px] text-ink-faint">
+                <span className="mt-1 text-[12px] text-ink-faint min-[1536px]:text-[13.5px]">
                   Оценка на основе типичных диапазонов по проектам Nexus. Иллюстративный расчёт, не гарантия.
                 </span>
               </motion.div>

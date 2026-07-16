@@ -14,7 +14,7 @@ const kpis = [
 
 export default function Impact() {
   return (
-    <section id="impact" className="relative py-28 sm:py-36">
+    <section id="impact" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <div className="pointer-events-none absolute inset-0 grid-fade opacity-60" />
       <Container className="relative flex flex-col items-center">
         <SectionHeading
@@ -23,26 +23,26 @@ export default function Impact() {
           subtitle="Не только красиво, но и измеримо."
         />
 
-        <Reveal delay={0.1} className="mt-6 max-w-[640px] text-center">
-          <p className="text-[15px] leading-relaxed text-ink-dim">
+        <Reveal delay={0.1} className="mt-6 max-w-[640px] text-center min-[1536px]:max-w-[760px]">
+          <p className="text-[15px] leading-relaxed text-ink-dim min-[1536px]:text-[17px]">
             Для девелопера важно понимать, что даёт каждый модуль по отдельности и что меняется при полной интеграции. Поэтому мы считаем эффект в разрезе скорости продаж, глубины воронки, качества лида и нагрузки на менеджеров.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid w-full grid-cols-2 gap-4 lg:grid-cols-5">
+        <div className="mt-14 grid w-full grid-cols-2 gap-4 min-[1024px]:grid-cols-5 min-[1536px]:gap-5">
           {kpis.map((k, i) => (
             <Reveal key={k.module} delay={i * 0.08}>
-              <div className="panel flex h-full flex-col justify-between rounded-2xl p-6">
+              <div className="panel flex h-full flex-col justify-between rounded-2xl p-6 min-[1536px]:p-8">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-medium uppercase tracking-wide text-ink-faint">{k.module}</span>
+                  <span className="text-[12px] font-medium uppercase tracking-wide text-ink-faint min-[1536px]:text-[13px]">{k.module}</span>
                   {k.trend === "down" ? (
                     <TrendingDown className="h-4 w-4 text-cyan" />
                   ) : (
                     <TrendingUp className="h-4 w-4 text-cyan" />
                   )}
                 </div>
-                <span className="mt-4 text-[26px] font-semibold text-gradient sm:text-[30px]">{k.value}</span>
-                <p className="mt-2 text-[13px] leading-snug text-ink-dim">{k.label}</p>
+                <span className="mt-4 text-[26px] font-semibold text-gradient min-[640px]:text-[30px] min-[1536px]:text-[38px]">{k.value}</span>
+                <p className="mt-2 text-[13px] leading-snug text-ink-dim min-[1536px]:text-[15px]">{k.label}</p>
                 <div className="mt-4 h-1 w-full overflow-hidden rounded-full bg-white/[0.06]">
                   <motion.div
                     className="h-full rounded-full bg-gradient-to-r from-indigo to-cyan"

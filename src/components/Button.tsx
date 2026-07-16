@@ -6,8 +6,8 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap select-none";
 
 const sizes = {
-  md: "px-5 py-2.5 text-[14px]",
-  lg: "px-6 py-3.5 text-[15px]",
+  md: "px-5 py-2.5 text-[14px] min-[1536px]:px-6 min-[1536px]:py-3 min-[1536px]:text-[15px]",
+  lg: "px-6 py-3.5 text-[15px] min-[1536px]:px-7 min-[1536px]:py-4 min-[1536px]:text-[16.5px] min-[1920px]:px-8 min-[1920px]:py-4.5 min-[1920px]:text-[18px]",
 };
 
 const variants: Record<Variant, string> = {

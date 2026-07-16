@@ -53,11 +53,11 @@ function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
     <div className="panel rounded-2xl">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left min-[1536px]:px-8 min-[1536px]:py-6"
       >
-        <span className="text-[15px] font-medium text-white">{q}</span>
+        <span className="text-[15px] font-medium text-white min-[1536px]:text-[17px]">{q}</span>
         <Plus
-          className={`h-4.5 w-4.5 shrink-0 text-ink-faint transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+          className={`h-4.5 w-4.5 shrink-0 text-ink-faint transition-transform duration-300 min-[1536px]:h-5 min-[1536px]:w-5 ${open ? "rotate-45" : ""}`}
         />
       </button>
       <div
@@ -65,7 +65,7 @@ function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-[14px] leading-relaxed text-ink-faint">{a}</p>
+          <p className="px-6 pb-5 text-[14px] leading-relaxed text-ink-faint min-[1536px]:px-8 min-[1536px]:pb-6 min-[1536px]:text-[16px]">{a}</p>
         </div>
       </div>
     </div>
@@ -74,11 +74,11 @@ function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative py-28 sm:py-36">
+    <section id="faq" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading eyebrow="Вопросы" title="Ответы на частые вопросы" />
 
-        <div className="mt-14 flex w-full max-w-[760px] flex-col gap-3">
+        <div className="mt-14 flex w-full max-w-[760px] flex-col gap-3 min-[1536px]:max-w-[880px] min-[1536px]:gap-4">
           {faqs.map((f, i) => (
             <Reveal key={f.q} delay={Math.min(i * 0.04, 0.3)}>
               <FAQItem q={f.q} a={f.a} defaultOpen={i === 0} />
