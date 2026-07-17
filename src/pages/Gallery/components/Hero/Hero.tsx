@@ -2,7 +2,7 @@ import { categories } from "../../data";
 
 export default function Hero() {
   return (
-    <section id="home" className="scroll-mt-[90px] bg-white px-6 pb-10 pt-9 min-[480px]:pt-16 min-[480px]:pb-14">
+    <section id="home" className="scroll-mt-[90px] bg-white px-6 pb-10 pt-14 min-[480px]:pt-[150px] min-[480px]:pb-14">
       <p className="text-[10px] font-semibold text-black min-[480px]:text-[18px]">Портфолио</p>
       <div className="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2 min-[480px]:mt-12 min-[480px]:gap-x-16">
         {categories.map((c, i) => (
