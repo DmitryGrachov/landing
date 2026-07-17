@@ -1,5 +1,5 @@
 import { X, Send, Phone } from "lucide-react";
-import { menuLinks, phone } from "../../data";
+import { menuLinks, phone, type TabId } from "../../data";
 
 function scrollToAnchor(href: string) {
   const id = href.replace("#", "");
@@ -12,7 +12,26 @@ const socials = [
   { label: "vk", icon: "VK" },
 ];
 
-export default function Menu({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function Menu({
+  open,
+  onClose,
+  onTabChange,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onTabChange: (id: TabId) => void;
+}) {
+  function navigateTo(href: string, tab?: TabId) {
+    if (tab) {
+      onTabChange(tab);
+      // wait for the tab content to render before scrolling to it
+      requestAnimationFrame(() => requestAnimationFrame(() => scrollToAnchor(href)));
+    } else {
+      scrollToAnchor(href);
+    }
+    onClose();
+  }
+
   return (
     <>
       <div
@@ -53,10 +72,7 @@ export default function Menu({ open, onClose }: { open: boolean; onClose: () => 
             <button
               key={l.href}
               type="button"
-              onClick={() => {
-                scrollToAnchor(l.href);
-                onClose();
-              }}
+              onClick={() => navigateTo(l.href, l.tab)}
               className="text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
             >
               {l.label}

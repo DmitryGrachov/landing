@@ -42,19 +42,21 @@ export const worksGrid3 = [
 
 export const showcaseImages = ["/gallery/showcase/1.jpg", "/gallery/showcase/2.jpg"];
 
-export const categories = [
-  { label: "Архивиз.", href: "#works" },
-  { label: "Видео.", href: "#video" },
-  { label: "ПО/UE.", href: "#software" },
-] as const;
+export type TabId = "archiviz" | "video" | "software";
 
-export const menuLinks = [
+export const tabs: { id: TabId; label: string; shortLabel: string }[] = [
+  { id: "archiviz", label: "Архивиз.", shortLabel: "Архивиз" },
+  { id: "video", label: "Видео.", shortLabel: "Видео" },
+  { id: "software", label: "ПО/UE.", shortLabel: "ПО/UE" },
+];
+
+export const menuLinks: { label: string; href: string; tab?: TabId }[] = [
   { label: "Главная", href: "#home" },
-  { label: "Возможности", href: "#capabilities" },
-  { label: "Работы", href: "#works" },
-  { label: "Партнеры", href: "#showcase" },
+  { label: "Возможности", href: "#capabilities", tab: "archiviz" },
+  { label: "Работы", href: "#works", tab: "archiviz" },
+  { label: "Партнеры", href: "#showcase", tab: "archiviz" },
   { label: "Контакты", href: "#contacts" },
-] as const;
+];
 
 export const phone = "8-999-555-44-22";
 export const headerPhone = "+7-999-888-55-63";
