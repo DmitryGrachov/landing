@@ -26,7 +26,7 @@ services:
     environment:
       DATABASE_URL: postgresql://gallery:gallery@db:5432/gallery?schema=public
       PORT: 4000
-      CORS_ORIGIN: http://localhost:5173
+      CORS_ORIGIN: http://localhost:5173,http://localhost:5174
       UPLOADS_DIR: uploads
       MAX_UPLOAD_MB: 25
       # Read-only mount of the legacy frontend assets, used once by the seed
@@ -46,6 +46,15 @@ services:
       - backend
     ports:
       - "5173:80"
+
+  admin:
+    build:
+      context: ./admin
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5174:80"
 
 volumes:
   gallery_pgdata:

@@ -18,6 +18,13 @@ export type MediaDto = {
   createdAt: Date;
 };
 
+export type CategoryDto = {
+  id: string;
+  slug: string;
+  name: string;
+  sortOrder: number;
+};
+
 export type CreateMediaInput = {
   categorySlug: string;
   tempFilePath: string;

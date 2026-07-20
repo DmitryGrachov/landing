@@ -9,6 +9,17 @@ export const galleryRepository = {
     });
   },
 
+  findAllCategories() {
+    return prisma.galleryCategory.findMany({ orderBy: { sortOrder: "asc" } });
+  },
+
+  findAllMedia() {
+    return prisma.galleryMedia.findMany({
+      include: { category: true },
+      orderBy: [{ category: { sortOrder: "asc" } }, { sortOrder: "asc" }],
+    });
+  },
+
   findCategoryBySlug(slug: string) {
     return prisma.galleryCategory.findUnique({ where: { slug } });
   },

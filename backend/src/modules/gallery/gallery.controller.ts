@@ -8,6 +8,16 @@ async function getGallery(_req: Request, res: Response) {
   res.json(data);
 }
 
+async function listCategories(_req: Request, res: Response) {
+  const categories = await galleryService.listCategories();
+  res.json(categories);
+}
+
+async function listMedia(_req: Request, res: Response) {
+  const media = await galleryService.listMedia();
+  res.json(media);
+}
+
 async function uploadMedia(req: Request, res: Response) {
   const file = req.file;
   const { category, group, sortOrder } = req.body as Record<string, string | undefined>;
@@ -49,4 +59,4 @@ async function deleteMedia(req: Request, res: Response) {
   res.status(204).send();
 }
 
-export const galleryController = { getGallery, uploadMedia, deleteMedia };
+export const galleryController = { getGallery, listCategories, listMedia, uploadMedia, deleteMedia };

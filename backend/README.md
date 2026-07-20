@@ -167,14 +167,30 @@ metadata).
 Deletes the DB row and its file on disk. Returns `204` on success, `404` if
 the id doesn't exist.
 
-## Future admin UI
+### `GET /api/gallery/categories`
 
-Nothing here needs to change to support one later:
+Added for the admin app below — the raw category rows (id, slug, name,
+sortOrder), so a client can populate an upload form without hardcoding
+slugs.
 
-- List/reorder/CRUD categories: extend `gallery.repository.ts` +
-  `gallery.service.ts`, add routes under `/api/gallery/categories`.
-- Bulk reorder media: add a `PATCH /api/gallery/media/:id` or a batch
-  endpoint that updates `sortOrder`; the column already exists.
-- Auth: add a middleware in front of the mutating routes
-  (`POST`/`DELETE`) once an admin surface exists — the routes are already
-  isolated in `gallery.routes.ts`.
+### `GET /api/gallery/media`
+
+Also added for the admin app — the full, flat media list with ids and all
+metadata (unlike `GET /api/gallery`, which only exposes public URLs grouped
+by category). This is what a client needs to know *which* record to
+`DELETE`.
+
+## Admin app
+
+`../admin` is a small separate React+Vite+TS app (its own Dockerfile, its
+own `nginx.conf` proxying `/api` and `/uploads` to this backend, same
+pattern as `../frontend`) that lists all media grouped by category and lets
+you upload or delete files. It talks to exactly the four endpoints above —
+no auth, no extra backend surface. See `../admin/README.md` if present, or
+just `docker compose up` from the repo root (it's wired in as the `admin`
+service, `http://localhost:5174`).
+
+Adding real auth in front of the mutating routes (`POST`/`DELETE`) before
+exposing this beyond local use is the main thing still worth doing — the
+routes are already isolated in `gallery.routes.ts`, so that's a middleware,
+not a restructuring.

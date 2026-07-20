@@ -5,7 +5,7 @@ import { HttpError } from "../../utils/HttpError";
 import { toPublicUploadUrl } from "../../utils/fileUrl";
 import { getMediaTypeFromMime } from "../../utils/mime";
 import { galleryRepository } from "./gallery.repository";
-import type { CreateMediaInput, GalleryResponse, MediaDto } from "./gallery.types";
+import type { CategoryDto, CreateMediaInput, GalleryResponse, MediaDto } from "./gallery.types";
 
 function toMediaDto(media: {
   id: string;
@@ -45,6 +45,16 @@ async function getGallery(): Promise<GalleryResponse> {
     response[category.slug] = category.media.map((m) => toPublicUploadUrl(m.filePath));
   }
   return response;
+}
+
+async function listCategories(): Promise<CategoryDto[]> {
+  const categories = await galleryRepository.findAllCategories();
+  return categories.map((c) => ({ id: c.id, slug: c.slug, name: c.name, sortOrder: c.sortOrder }));
+}
+
+async function listMedia(): Promise<MediaDto[]> {
+  const media = await galleryRepository.findAllMedia();
+  return media.map(toMediaDto);
 }
 
 async function createMedia(input: CreateMediaInput): Promise<MediaDto> {
@@ -97,4 +107,4 @@ async function deleteMedia(id: string): Promise<void> {
   });
 }
 
-export const galleryService = { getGallery, createMedia, deleteMedia };
+export const galleryService = { getGallery, listCategories, listMedia, createMedia, deleteMedia };
