@@ -1,0 +1,56 @@
+// Prisma schema for the /gallery page backend.
+// Design notes:
+// - The gallery-data.json "gallery" object only ever grouped items by a fixed
+//   key (feature/works/showcase). GalleryCategory turns that into real rows so
+//   new categories/tabs can be added later purely through data, no redeploys.
+// - GalleryMedia is one row per photo/video (no JSON blobs). `group` keeps the
+//   original sub-folder label (e.g. "works-1") purely as metadata, useful for
+//   a future admin UI that wants to cluster media without a full album model.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model GalleryCategory {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  media GalleryMedia[]
+
+  @@map("gallery_categories")
+}
+
+model GalleryMedia {
+  id           String    @id @default(cuid())
+  categoryId   String    @map("category_id")
+  category     GalleryCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  type         MediaType @default(IMAGE)
+  filePath     String    @map("file_path") // relative path under the uploads root
+  originalName String?   @map("original_name")
+  mimeType     String    @map("mime_type")
+  size         Int
+  width        Int?
+  height       Int?
+  group        String?
+  sortOrder    Int       @default(0) @map("sort_order")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@unique([categoryId, filePath])
+  @@index([categoryId, sortOrder])
+  @@map("gallery_media")
+}
