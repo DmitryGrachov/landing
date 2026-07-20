@@ -1,11 +1,13 @@
-import { tabs, type TabId } from "../../data";
+import type { TabDef, TabId } from "../../types";
 
 // Fixed, pill-shaped floating nav that stays on screen while scrolling —
 // confirmed on the source page: same viewport position at every scroll offset.
 export default function FloatingTabBar({
+  tabs,
   activeTab,
   onTabChange,
 }: {
+  tabs: TabDef[];
   activeTab: TabId;
   onTabChange: (id: TabId) => void;
 }) {

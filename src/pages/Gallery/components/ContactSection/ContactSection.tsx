@@ -1,13 +1,7 @@
 import { Send } from "lucide-react";
-import { phone } from "../../data";
+import type { SocialLink } from "../../types";
 
-const socials = [
-  { label: "behance", icon: "Bē" },
-  { label: "telegram", icon: null },
-  { label: "vk", icon: "VK" },
-];
-
-export default function ContactSection() {
+export default function ContactSection({ phone, socials }: { phone: string; socials: SocialLink[] }) {
   return (
     <section id="contacts" className="scroll-mt-[90px] border-t border-black/10 bg-white px-6 py-14 min-[480px]:py-20">
       <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-6 text-center">

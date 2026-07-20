@@ -1,25 +1,27 @@
 import { X, Send, Phone } from "lucide-react";
-import { menuLinks, phone, type TabId } from "../../data";
+import type { MenuLink, SocialLink, TabId } from "../../types";
 
 function scrollToAnchor(href: string) {
   const id = href.replace("#", "");
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-const socials = [
-  { label: "behance", icon: "Bē" },
-  { label: "telegram", icon: null },
-  { label: "vk", icon: "VK" },
-];
-
 export default function Menu({
   open,
   onClose,
   onTabChange,
+  logo,
+  links,
+  socials,
+  phone,
 }: {
   open: boolean;
   onClose: () => void;
   onTabChange: (id: TabId) => void;
+  logo: string;
+  links: MenuLink[];
+  socials: SocialLink[];
+  phone: string;
 }) {
   function navigateTo(href: string, tab?: TabId) {
     if (tab) {
@@ -47,16 +49,13 @@ export default function Menu({
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between">
-          <a
-            href="#home"
-            onClick={() => {
-              scrollToAnchor("#home");
-              onClose();
-            }}
+          <button
+            type="button"
+            onClick={() => navigateTo("#home")}
             className="text-[20px] font-bold tracking-tight text-[#fdfdfd] sm:text-[28px]"
           >
-            НЕТКОР.
-          </a>
+            {logo}
+          </button>
           <button
             type="button"
             onClick={onClose}
@@ -68,7 +67,7 @@ export default function Menu({
         </div>
 
         <nav className="mt-16 flex flex-col gap-5 sm:mt-20 sm:gap-6">
-          {menuLinks.map((l) => (
+          {links.map((l) => (
             <button
               key={l.href}
               type="button"

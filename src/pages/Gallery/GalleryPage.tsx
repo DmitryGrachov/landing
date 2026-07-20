@@ -10,32 +10,56 @@ import Showcase from "./components/Showcase/Showcase";
 import Quote from "./components/Quote/Quote";
 import PlaceholderSection from "./components/PlaceholderSection/PlaceholderSection";
 import ContactSection from "./components/ContactSection/ContactSection";
-import { featureImages, worksGrid1, worksGrid2, worksGrid3, type TabId } from "./data";
+import { useGalleryData } from "./hooks/useGalleryData";
+import type { TabId } from "./types";
 
 export default function GalleryPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>("archiviz");
+  const galleryData = useGalleryData();
+
+  if (galleryData.status === "loading") {
+    return <div className="min-h-screen bg-white" />;
+  }
+
+  if (galleryData.status === "error") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white px-6 text-center">
+        <p className="text-[14px] text-black/60">
+          Не удалось загрузить данные страницы: {galleryData.error}
+        </p>
+      </div>
+    );
+  }
+
+  const { data } = galleryData;
 
   return (
     <LightboxProvider>
       <div className="min-h-screen bg-white font-sans">
-        <Header onMenuOpen={() => setMenuOpen(true)} />
-        <FloatingTabBar activeTab={activeTab} onTabChange={setActiveTab} />
-        <Menu open={menuOpen} onClose={() => setMenuOpen(false)} onTabChange={setActiveTab} />
+        <Header logo={data.header.logo} phone={data.header.phone} onMenuOpen={() => setMenuOpen(true)} />
+        <FloatingTabBar tabs={data.tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+        <Menu
+          open={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          onTabChange={setActiveTab}
+          logo={data.menu.logo}
+          links={data.menu.links}
+          socials={data.menu.socials}
+          phone={data.contactPhone}
+        />
         <main>
-          <Hero activeTab={activeTab} onTabChange={setActiveTab} />
+          <Hero tabs={data.tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
           {activeTab === "archiviz" && (
             <>
               <section id="capabilities" className="scroll-mt-[90px] bg-white">
-                <GalleryGrid images={featureImages} />
+                <GalleryGrid images={data.gallery.feature} />
               </section>
               <section id="works" className="scroll-mt-[90px] bg-white">
-                <GalleryGrid images={worksGrid1} />
-                <GalleryGrid images={worksGrid2} />
-                <GalleryGrid images={worksGrid3} />
+                <GalleryGrid images={data.gallery.works} />
               </section>
-              <Showcase />
+              <Showcase images={data.gallery.showcase} />
             </>
           )}
 
@@ -45,8 +69,8 @@ export default function GalleryPage() {
             <PlaceholderSection id="software" label="ПО/UE" icon={LayoutTemplate} />
           )}
 
-          <Quote />
-          <ContactSection />
+          <Quote text={data.quote} />
+          <ContactSection phone={data.contactPhone} socials={data.menu.socials} />
         </main>
       </div>
     </LightboxProvider>

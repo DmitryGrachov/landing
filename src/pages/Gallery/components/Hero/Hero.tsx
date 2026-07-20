@@ -1,9 +1,11 @@
-import { tabs, type TabId } from "../../data";
+import type { TabDef, TabId } from "../../types";
 
 export default function Hero({
+  tabs,
   activeTab,
   onTabChange,
 }: {
+  tabs: TabDef[];
   activeTab: TabId;
   onTabChange: (id: TabId) => void;
 }) {
