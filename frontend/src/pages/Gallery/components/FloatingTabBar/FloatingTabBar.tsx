@@ -19,7 +19,7 @@ export default function FloatingTabBar({
             key={t.id}
             type="button"
             onClick={() => onTabChange(t.id)}
-            className="text-[12px] font-semibold transition-colors"
+            className="cursor-pointer text-[12px] font-semibold transition-colors"
             style={{ color: t.id === activeTab ? "rgb(26,26,26)" : "rgb(206,206,206)" }}
           >
             {t.shortLabel}

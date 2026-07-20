@@ -38,7 +38,7 @@ export default function Menu({
     <>
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-[90] bg-black/40 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[90] cursor-pointer bg-black/40 transition-opacity duration-300 ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -52,7 +52,7 @@ export default function Menu({
           <button
             type="button"
             onClick={() => navigateTo("#home")}
-            className="text-[20px] font-bold tracking-tight text-[#fdfdfd] sm:text-[28px]"
+            className="cursor-pointer text-[20px] font-bold tracking-tight text-[#fdfdfd] sm:text-[28px]"
           >
             {logo}
           </button>
@@ -60,7 +60,7 @@ export default function Menu({
             type="button"
             onClick={onClose}
             aria-label="Закрыть меню"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
           >
             <X className="h-6 w-6" />
           </button>
@@ -81,7 +81,7 @@ export default function Menu({
                 key={l.href}
                 type="button"
                 onClick={() => navigateTo(l.href, l.tab)}
-                className="text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
+                className="cursor-pointer text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
               >
                 {l.label}
               </button>

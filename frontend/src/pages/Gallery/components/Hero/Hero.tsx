@@ -18,7 +18,7 @@ export default function Hero({
             key={t.id}
             type="button"
             onClick={() => onTabChange(t.id)}
-            className="text-[20px] font-bold leading-[1.55] tracking-[-1px] transition-opacity hover:opacity-70 min-[480px]:text-[36px]"
+            className="cursor-pointer text-[20px] font-bold leading-[1.55] tracking-[-1px] transition-opacity hover:opacity-70 min-[480px]:text-[36px]"
             style={{ color: t.id === activeTab ? "rgb(17,17,17)" : "rgb(220,220,220)" }}
           >
             {t.label}

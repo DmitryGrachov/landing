@@ -53,7 +53,7 @@ function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
     <div className="panel rounded-2xl">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left min-[1536px]:px-8 min-[1536px]:py-6"
+        className="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left min-[1536px]:px-8 min-[1536px]:py-6"
       >
         <span className="text-[15px] font-medium text-white min-[1536px]:text-[17px]">{q}</span>
         <Plus

@@ -20,7 +20,7 @@ export default function Header({
           type="button"
           onClick={onMenuOpen}
           aria-label="Открыть меню"
-          className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[6px]"
+          className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center justify-center gap-[6px]"
         >
           <span className="block h-[2px] w-5 bg-black" />
           <span className="block h-[2px] w-5 bg-black" />
