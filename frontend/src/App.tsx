@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
 import Pipeline from "./sections/Pipeline";
@@ -11,6 +12,12 @@ import FinalCTA from "./sections/FinalCTA";
 import Footer from "./components/Footer";
 
 function App() {
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    document.getElementById(id)?.scrollIntoView({ block: "start" });
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-canvas">
       <Nav />

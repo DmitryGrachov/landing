@@ -47,8 +47,12 @@
   "menu": {
     "logo": "НЕТКОР.",
     "links": [
-      { "label": "Главная", "href": "#home" },
-      { "label": "Архивиз", "href": "#archiviz", "tab": "archiviz" },
+      { "label": "Экосистема", "href": "/#ecosystem" },
+      { "label": "Почему мы", "href": "/#why" },
+      { "label": "Эффект", "href": "/#impact" },
+      { "label": "Калькулятор", "href": "/#roi" },
+      { "label": "Внедрение", "href": "/#pricing" },
+      { "label": "Вопросы", "href": "/#faq" },
       { "label": "Контакты", "href": "#contacts" }
     ],
     "socials": [

@@ -67,16 +67,26 @@ export default function Menu({
         </div>
 
         <nav className="mt-16 flex flex-col gap-5 sm:mt-20 sm:gap-6">
-          {links.map((l) => (
-            <button
-              key={l.href}
-              type="button"
-              onClick={() => navigateTo(l.href, l.tab)}
-              className="text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
-            >
-              {l.label}
-            </button>
-          ))}
+          {links.map((l) =>
+            l.href.startsWith("/") ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <button
+                key={l.href}
+                type="button"
+                onClick={() => navigateTo(l.href, l.tab)}
+                className="text-left text-[32px] font-semibold leading-tight text-[#8a8a8a] transition-colors hover:text-white sm:text-[42px] md:text-[50px]"
+              >
+                {l.label}
+              </button>
+            ),
+          )}
         </nav>
 
         <div className="mt-auto flex flex-col gap-6 pt-16">
@@ -100,7 +110,6 @@ export default function Menu({
             </a>
           </div>
           <div className="flex flex-col gap-1 text-[15px] text-[#8a8a8a] sm:text-[16px]">
-            <span>{phone}</span>
             <span>{phone}</span>
           </div>
         </div>
