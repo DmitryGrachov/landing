@@ -49,7 +49,13 @@ async function getGallery(): Promise<GalleryResponse> {
 
 async function listCategories(): Promise<CategoryDto[]> {
   const categories = await galleryRepository.findAllCategories();
-  return categories.map((c) => ({ id: c.id, slug: c.slug, name: c.name, sortOrder: c.sortOrder }));
+  return categories.map((c) => ({
+    id: c.id,
+    slug: c.slug,
+    name: c.name,
+    mediaType: c.mediaType,
+    sortOrder: c.sortOrder,
+  }));
 }
 
 async function listMedia(): Promise<MediaDto[]> {
@@ -70,6 +76,15 @@ async function createMedia(input: CreateMediaInput): Promise<MediaDto> {
     throw new HttpError(400, `Unsupported file type: "${input.mimeType}"`);
   }
 
+  const uploadedType = getMediaTypeFromMime(input.mimeType);
+  if (uploadedType !== category.mediaType) {
+    fs.unlinkSync(input.tempFilePath);
+    throw new HttpError(
+      400,
+      `Category "${category.slug}" only accepts ${category.mediaType === "VIDEO" ? "video" : "image"} files`,
+    );
+  }
+
   const destFileName = path.basename(input.tempFilePath);
   const destRelativePath = path.posix.join(category.slug, destFileName);
   const destAbsolutePath = path.join(env.uploadsDir, category.slug, destFileName);
@@ -81,7 +96,7 @@ async function createMedia(input: CreateMediaInput): Promise<MediaDto> {
 
   const media = await galleryRepository.createMedia({
     categoryId: category.id,
-    type: getMediaTypeFromMime(input.mimeType),
+    type: uploadedType,
     filePath: destRelativePath,
     originalName: input.originalName,
     mimeType: input.mimeType,

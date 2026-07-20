@@ -16,9 +16,13 @@ export default function UploadForm({
   const [group, setGroup] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
+  const selectedCategory = categories.find((c) => c.slug === category);
+  const accept = selectedCategory?.mediaType === "VIDEO" ? "video/*" : "image/*";
+  const fileMismatch = !!file && !!selectedCategory && !file.type.startsWith(accept.split("/")[0] + "/");
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!file || !category) return;
+    if (!file || !category || fileMismatch) return;
 
     await onUpload({
       file,
@@ -37,14 +41,20 @@ export default function UploadForm({
   return (
     <form className="upload-form" onSubmit={handleSubmit}>
       <div className="field">
-        <label htmlFor="admin-file-input">Файл</label>
+        <label htmlFor="admin-file-input">Файл ({selectedCategory?.mediaType === "VIDEO" ? "видео" : "фото"})</label>
         <input
           id="admin-file-input"
           type="file"
-          accept="image/*,video/*"
+          accept={accept}
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           required
         />
+        {fileMismatch && (
+          <span className="field-error">
+            Категория «{selectedCategory?.name}» принимает только{" "}
+            {selectedCategory?.mediaType === "VIDEO" ? "видео" : "фото"}.
+          </span>
+        )}
       </div>
 
       <div className="field">
@@ -52,7 +62,7 @@ export default function UploadForm({
         <select id="admin-category" value={category} onChange={(e) => setCategory(e.target.value)} required>
           {categories.map((c) => (
             <option key={c.id} value={c.slug}>
-              {c.name} ({c.slug})
+              {c.name} ({c.mediaType === "VIDEO" ? "видео" : "фото"})
             </option>
           ))}
         </select>
@@ -80,7 +90,7 @@ export default function UploadForm({
         />
       </div>
 
-      <button type="submit" className="btn-primary" disabled={uploading || !file || !category}>
+      <button type="submit" className="btn-primary" disabled={uploading || !file || !category || fileMismatch}>
         {uploading ? "Загрузка…" : "Загрузить"}
       </button>
     </form>

@@ -62,6 +62,11 @@ body {
   color: #444;
 }
 
+.field-error {
+  color: #b91c1c;
+  font-size: 12px;
+}
+
 .field input,
 .field select {
   padding: 7px 9px;

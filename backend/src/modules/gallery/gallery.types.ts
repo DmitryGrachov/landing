@@ -22,6 +22,7 @@ export type CategoryDto = {
   id: string;
   slug: string;
   name: string;
+  mediaType: MediaType;
   sortOrder: number;
 };
 

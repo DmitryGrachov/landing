@@ -6,7 +6,7 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import { PrismaClient } from "@prisma/client";
+import { MediaType, PrismaClient } from "@prisma/client";
 import { getMimeTypeFromExt, getMediaTypeFromMime } from "../src/utils/mime";
 
 const prisma = new PrismaClient();
@@ -25,10 +25,15 @@ type LegacyGalleryData = {
   };
 };
 
-const CATEGORY_DEFS: Record<keyof LegacyGalleryData["gallery"], { name: string; sortOrder: number }> = {
-  feature: { name: "Возможности", sortOrder: 0 },
-  works: { name: "Работы", sortOrder: 1 },
-  showcase: { name: "Витрина партнёров", sortOrder: 2 },
+// One category per site tab/section. "video" and "software" have no legacy
+// assets to migrate (the old JSON never had them) — they're created empty,
+// ready for the admin app to upload into.
+const CATEGORY_DEFS: Record<string, { name: string; sortOrder: number; mediaType: MediaType }> = {
+  feature: { name: "Возможности", sortOrder: 0, mediaType: MediaType.IMAGE },
+  works: { name: "Работы", sortOrder: 1, mediaType: MediaType.IMAGE },
+  showcase: { name: "Витрина партнёров", sortOrder: 2, mediaType: MediaType.IMAGE },
+  video: { name: "Видео", sortOrder: 3, mediaType: MediaType.VIDEO },
+  software: { name: "ПО/UE", sortOrder: 4, mediaType: MediaType.IMAGE },
 };
 
 /** "/gallery/works-1/1.jpg" -> { group: "works-1", fileName: "1.jpg" } */
@@ -48,15 +53,15 @@ async function main() {
 
   const legacyData = JSON.parse(fs.readFileSync(LEGACY_JSON_PATH, "utf-8")) as LegacyGalleryData;
 
-  for (const slug of Object.keys(CATEGORY_DEFS) as (keyof LegacyGalleryData["gallery"])[]) {
+  for (const slug of Object.keys(CATEGORY_DEFS)) {
     const def = CATEGORY_DEFS[slug];
     const category = await prisma.galleryCategory.upsert({
       where: { slug },
-      update: { name: def.name, sortOrder: def.sortOrder },
-      create: { slug, name: def.name, sortOrder: def.sortOrder },
+      update: { name: def.name, sortOrder: def.sortOrder, mediaType: def.mediaType },
+      create: { slug, name: def.name, sortOrder: def.sortOrder, mediaType: def.mediaType },
     });
 
-    const legacyPaths = legacyData.gallery[slug] ?? [];
+    const legacyPaths = (legacyData.gallery as Record<string, string[] | undefined>)[slug] ?? [];
     let sortOrder = 0;
 
     for (const legacyPath of legacyPaths) {

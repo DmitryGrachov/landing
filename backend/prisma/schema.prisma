@@ -22,12 +22,16 @@ enum MediaType {
 }
 
 model GalleryCategory {
-  id        String   @id @default(cuid())
-  slug      String   @unique
+  id        String    @id @default(cuid())
+  slug      String    @unique
   name      String
-  sortOrder Int      @default(0) @map("sort_order")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  // Every category holds exactly one kind of media (matches the site's tabs:
+  // the "Видео" tab is all video, "Архивиз"/"ПО/UE" are all photos) — this is
+  // enforced on upload in gallery.service.ts, not just a display hint.
+  mediaType MediaType @default(IMAGE) @map("media_type")
+  sortOrder Int       @default(0) @map("sort_order")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
 
   media GalleryMedia[]
 

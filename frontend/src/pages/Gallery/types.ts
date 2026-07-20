@@ -27,6 +27,8 @@ export interface GalleryData {
     feature: string[];
     works: string[];
     showcase: string[];
+    video: string[];
+    software: string[];
   };
   quote: string;
   menu: {

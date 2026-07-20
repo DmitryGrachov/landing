@@ -1,7 +1,9 @@
 import { createContext, useContext } from "react";
 
+export type LightboxMediaType = "image" | "video";
+
 export type LightboxContextValue = {
-  open: (src: string) => void;
+  open: (src: string, type?: LightboxMediaType) => void;
 };
 
 export const LightboxContext = createContext<LightboxContextValue | null>(null);

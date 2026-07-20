@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Video, LayoutTemplate } from "lucide-react";
 import LightboxProvider from "./components/Lightbox/LightboxProvider";
 import Header from "./components/Header/Header";
 import FloatingTabBar from "./components/FloatingTabBar/FloatingTabBar";
@@ -8,7 +7,6 @@ import Hero from "./components/Hero/Hero";
 import GalleryGrid from "./components/GalleryGrid/GalleryGrid";
 import Showcase from "./components/Showcase/Showcase";
 import Quote from "./components/Quote/Quote";
-import PlaceholderSection from "./components/PlaceholderSection/PlaceholderSection";
 import ContactSection from "./components/ContactSection/ContactSection";
 import { useGalleryData } from "./hooks/useGalleryData";
 import type { TabId } from "./types";
@@ -63,10 +61,28 @@ export default function GalleryPage() {
             </>
           )}
 
-          {activeTab === "video" && <PlaceholderSection id="video" label="Видео" icon={Video} />}
+          {activeTab === "video" && (
+            <section id="video" className="scroll-mt-[90px] bg-white">
+              {data.gallery.video.length > 0 ? (
+                <GalleryGrid images={data.gallery.video} type="video" />
+              ) : (
+                <p className="px-6 py-10 text-center text-[14px] text-black/40 min-[480px]:px-10">
+                  Видео скоро появятся здесь.
+                </p>
+              )}
+            </section>
+          )}
 
           {activeTab === "software" && (
-            <PlaceholderSection id="software" label="ПО/UE" icon={LayoutTemplate} />
+            <section id="software" className="scroll-mt-[90px] bg-white">
+              {data.gallery.software.length > 0 ? (
+                <GalleryGrid images={data.gallery.software} />
+              ) : (
+                <p className="px-6 py-10 text-center text-[14px] text-black/40 min-[480px]:px-10">
+                  Материалы скоро появятся здесь.
+                </p>
+              )}
+            </section>
           )}
 
           <Quote text={data.quote} />
