@@ -2,6 +2,12 @@
  * One-off migration: reads the legacy frontend/public/gallery-data.json,
  * copies the referenced files into backend/uploads/<category>/..., and
  * inserts one GalleryMedia row per file. Safe to re-run (upserts).
+ *
+ * The JSON's "gallery" key (feature/works/showcase paths) is dead at
+ * runtime — the React app's gallery content comes entirely from this
+ * backend's API now — but it's still this script's only source of record
+ * for the original files/paths. Don't "clean up" those arrays in the JSON;
+ * doing so breaks this migration for anyone re-seeding from scratch.
  */
 import "dotenv/config";
 import fs from "node:fs";
@@ -25,16 +31,41 @@ type LegacyGalleryData = {
   };
 };
 
-// One category per site tab/section. "video" and "software" have no legacy
-// assets to migrate (the old JSON never had them) — they're created empty,
-// ready for the admin app to upload into.
+// One category per site tab: "Архивиз" (feature/works/showcase used to be
+// three separate categories/sections — the site now shows them as a single
+// grid, so they live under one "archiviz" category too; original sub-folder
+// names are kept via `group` for reference). "video"/"software" have no
+// legacy assets to migrate — created empty, ready for the admin app.
 const CATEGORY_DEFS: Record<string, { name: string; sortOrder: number; mediaType: MediaType }> = {
-  feature: { name: "Возможности", sortOrder: 0, mediaType: MediaType.IMAGE },
-  works: { name: "Работы", sortOrder: 1, mediaType: MediaType.IMAGE },
-  showcase: { name: "Витрина партнёров", sortOrder: 2, mediaType: MediaType.IMAGE },
-  video: { name: "Видео", sortOrder: 3, mediaType: MediaType.VIDEO },
-  software: { name: "ПО/UE", sortOrder: 4, mediaType: MediaType.IMAGE },
+  archiviz: { name: "Архивиз", sortOrder: 0, mediaType: MediaType.IMAGE },
+  video: { name: "Видео", sortOrder: 1, mediaType: MediaType.VIDEO },
+  software: { name: "ПО/UE", sortOrder: 2, mediaType: MediaType.IMAGE },
 };
+
+// Categories this project used before feature/works/showcase were merged
+// into "archiviz". Cleaned up on seed so re-running against an older
+// database converges to the current 3-category layout instead of piling up
+// duplicates under both the old and new slugs.
+const RETIRED_CATEGORY_SLUGS = ["feature", "works", "showcase"];
+
+async function retireOldArchivizCategories() {
+  const retired = await prisma.galleryCategory.findMany({ where: { slug: { in: RETIRED_CATEGORY_SLUGS } } });
+  if (retired.length === 0) return;
+
+  console.log(`[seed] merging legacy categories [${retired.map((c) => c.slug).join(", ")}] into "archiviz"`);
+  for (const category of retired) {
+    fs.rmSync(path.join(UPLOADS_DIR, category.slug), { recursive: true, force: true });
+  }
+  // Cascades to delete their gallery_media rows too (onDelete: Cascade).
+  await prisma.galleryCategory.deleteMany({ where: { slug: { in: RETIRED_CATEGORY_SLUGS } } });
+}
+
+function getLegacyPathsForCategory(slug: string, legacyData: LegacyGalleryData): string[] {
+  if (slug === "archiviz") {
+    return [...legacyData.gallery.feature, ...legacyData.gallery.works, ...legacyData.gallery.showcase];
+  }
+  return (legacyData.gallery as Record<string, string[] | undefined>)[slug] ?? [];
+}
 
 /** "/gallery/works-1/1.jpg" -> { group: "works-1", fileName: "1.jpg" } */
 function parseLegacyPath(legacyPath: string, categorySlug: string) {
@@ -53,6 +84,8 @@ async function main() {
 
   const legacyData = JSON.parse(fs.readFileSync(LEGACY_JSON_PATH, "utf-8")) as LegacyGalleryData;
 
+  await retireOldArchivizCategories();
+
   for (const slug of Object.keys(CATEGORY_DEFS)) {
     const def = CATEGORY_DEFS[slug];
     const category = await prisma.galleryCategory.upsert({
@@ -61,7 +94,7 @@ async function main() {
       create: { slug, name: def.name, sortOrder: def.sortOrder, mediaType: def.mediaType },
     });
 
-    const legacyPaths = (legacyData.gallery as Record<string, string[] | undefined>)[slug] ?? [];
+    const legacyPaths = getLegacyPathsForCategory(slug, legacyData);
     let sortOrder = 0;
 
     for (const legacyPath of legacyPaths) {

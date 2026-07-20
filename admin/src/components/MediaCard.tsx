@@ -28,7 +28,6 @@ export default function MediaCard({
         </span>
         <span>
           {media.type === "VIDEO" ? "видео" : "фото"} · {formatSize(media.size)}
-          {media.group ? ` · ${media.group}` : ""}
         </span>
         <span>#{media.sortOrder}</span>
         <button

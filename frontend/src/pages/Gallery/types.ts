@@ -24,9 +24,7 @@ export interface GalleryData {
   };
   tabs: TabDef[];
   gallery: {
-    feature: string[];
-    works: string[];
-    showcase: string[];
+    archiviz: string[];
     video: string[];
     software: string[];
   };

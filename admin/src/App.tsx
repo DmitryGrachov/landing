@@ -25,7 +25,7 @@ export default function App() {
       .finally(() => setLoading(false));
   }, [load]);
 
-  async function handleUpload(input: { file: File; category: string; group?: string; sortOrder?: number }) {
+  async function handleUpload(input: { file: File; category: string; sortOrder?: number }) {
     setUploading(true);
     setError(null);
     try {

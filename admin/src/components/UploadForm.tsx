@@ -9,11 +9,10 @@ export default function UploadForm({
 }: {
   categories: Category[];
   uploading: boolean;
-  onUpload: (input: { file: File; category: string; group?: string; sortOrder?: number }) => Promise<void>;
+  onUpload: (input: { file: File; category: string; sortOrder?: number }) => Promise<void>;
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [category, setCategory] = useState(categories[0]?.slug ?? "");
-  const [group, setGroup] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
   const selectedCategory = categories.find((c) => c.slug === category);
@@ -27,12 +26,10 @@ export default function UploadForm({
     await onUpload({
       file,
       category,
-      group: group.trim() || undefined,
       sortOrder: sortOrder.trim() ? Number(sortOrder) : undefined,
     });
 
     setFile(null);
-    setGroup("");
     setSortOrder("");
     const input = document.getElementById("admin-file-input") as HTMLInputElement | null;
     if (input) input.value = "";
@@ -66,17 +63,6 @@ export default function UploadForm({
             </option>
           ))}
         </select>
-      </div>
-
-      <div className="field">
-        <label htmlFor="admin-group">Группа (необязательно)</label>
-        <input
-          id="admin-group"
-          type="text"
-          value={group}
-          onChange={(e) => setGroup(e.target.value)}
-          placeholder="works-1"
-        />
       </div>
 
       <div className="field">

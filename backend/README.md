@@ -21,18 +21,22 @@ without a redeploy, so it is **not** mirrored as-is in the database.
 
 Instead:
 
-- **`gallery_categories`** — one row per tab/section. Today: `feature`,
-  `works`, `showcase` (all under the "Архивиз" tab), `video` (the "Видео"
-  tab), and `software` (the "ПО/UE" tab). Adding another category later is a
-  data change, not a schema change. Each category has a `media_type`
-  (`IMAGE`/`VIDEO`) — a category only ever holds one kind of media (e.g.
-  `video` is video-only), enforced in `gallery.service.ts` on upload, not
-  just a display convention.
+- **`gallery_categories`** — one row per site tab: `archiviz` (photos),
+  `video` (video), `software` (photos, the "ПО/UE" tab). `feature`/`works`/
+  `showcase` used to be three separate categories under the "Архивиз" tab,
+  matching the legacy JSON's three arrays — the site now shows them as one
+  grid, so `prisma/seed.ts` merges them into a single `archiviz` category
+  (see `retireOldArchivizCategories` there), keeping each item's original
+  sub-folder as its `group` (`feature`, `works-1`, `works-2`, `works-3`,
+  `showcase`) purely for reference in the admin UI. Adding another category
+  later is a data change, not a schema change. Each category has a
+  `media_type` (`IMAGE`/`VIDEO`) — a category only ever holds one kind of
+  media (e.g. `video` is video-only), enforced in `gallery.service.ts` on
+  upload, not just a display convention.
 - **`gallery_media`** — one row per photo/video: `category_id`, `type`
   (`IMAGE`/`VIDEO`), `file_path` (relative to `uploads/`), `original_name`,
-  `mime_type`, `size`, optional `width`/`height`, an optional `group` label
-  (kept from the old `works-1`/`works-2`/`works-3` sub-folders, purely as
-  metadata for the admin UI), and `sort_order` for display order.
+  `mime_type`, `size`, optional `width`/`height`, an optional `group` label,
+  and `sort_order` for display order.
 
 This is a standard normalized "media library" shape: swapping categories,
 reordering items, or adding an admin CRUD UI on top later needs no schema
@@ -146,9 +150,7 @@ response:
 
 ```json
 {
-  "feature": ["/uploads/feature/feature-1.webp", "..."],
-  "works": ["/uploads/works/works-1/1.jpg", "..."],
-  "showcase": ["/uploads/showcase/1.jpg", "..."],
+  "archiviz": ["/uploads/archiviz/feature/feature-1.webp", "..."],
   "video": ["/uploads/video/<uuid>.mp4", "..."],
   "software": ["/uploads/software/<uuid>.jpg", "..."]
 }
@@ -161,7 +163,7 @@ response:
 | field       | required | notes                                              |
 |-------------|----------|-----------------------------------------------------|
 | `file`      | yes      | must match the target category's media type (below) |
-| `category`  | yes      | existing category slug (`feature`/`works`/`showcase`/`video`/`software`) |
+| `category`  | yes      | existing category slug (`archiviz`/`video`/`software`) |
 | `group`     | no       | free-text sub-grouping label                        |
 | `sortOrder` | no       | integer; defaults to "append at the end"            |
 

@@ -20,16 +20,10 @@ export function fetchMedia(): Promise<Media[]> {
   return request(`${API_BASE}/media`);
 }
 
-export function uploadMedia(input: {
-  file: File;
-  category: string;
-  group?: string;
-  sortOrder?: number;
-}): Promise<Media> {
+export function uploadMedia(input: { file: File; category: string; sortOrder?: number }): Promise<Media> {
   const formData = new FormData();
   formData.append("file", input.file);
   formData.append("category", input.category);
-  if (input.group) formData.append("group", input.group);
   if (input.sortOrder !== undefined) formData.append("sortOrder", String(input.sortOrder));
 
   return request(`${API_BASE}/media`, { method: "POST", body: formData });

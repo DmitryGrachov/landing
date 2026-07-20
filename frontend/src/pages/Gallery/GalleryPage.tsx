@@ -5,7 +5,6 @@ import FloatingTabBar from "./components/FloatingTabBar/FloatingTabBar";
 import Menu from "./components/Menu/Menu";
 import Hero from "./components/Hero/Hero";
 import GalleryGrid from "./components/GalleryGrid/GalleryGrid";
-import Showcase from "./components/Showcase/Showcase";
 import Quote from "./components/Quote/Quote";
 import ContactSection from "./components/ContactSection/ContactSection";
 import { useGalleryData } from "./hooks/useGalleryData";
@@ -50,15 +49,15 @@ export default function GalleryPage() {
           <Hero tabs={data.tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
           {activeTab === "archiviz" && (
-            <>
-              <section id="capabilities" className="scroll-mt-[90px] bg-white">
-                <GalleryGrid images={data.gallery.feature} />
-              </section>
-              <section id="works" className="scroll-mt-[90px] bg-white">
-                <GalleryGrid images={data.gallery.works} />
-              </section>
-              <Showcase images={data.gallery.showcase} />
-            </>
+            <section id="archiviz" className="scroll-mt-[90px] bg-white">
+              {data.gallery.archiviz.length > 0 ? (
+                <GalleryGrid images={data.gallery.archiviz} />
+              ) : (
+                <p className="px-6 py-10 text-center text-[14px] text-black/40 min-[480px]:px-10">
+                  Работы скоро появятся здесь.
+                </p>
+              )}
+            </section>
           )}
 
           {activeTab === "video" && (

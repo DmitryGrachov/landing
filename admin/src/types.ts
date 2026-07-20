@@ -18,7 +18,6 @@ export interface Media {
   size: number;
   width: number | null;
   height: number | null;
-  group: string | null;
   sortOrder: number;
   createdAt: string;
 }
