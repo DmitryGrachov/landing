@@ -1,8 +1,14 @@
 # Gallery backend
 
-Standalone API that serves data and media for the `/gallery` page only.
-Nothing in `frontend/` was touched — this service is meant to be pointed to
-by `useGalleryData` later, once someone swaps the fetch URL.
+API that serves data and media for the `/gallery` page only — the rest of
+the site is untouched. `frontend/src/pages/Gallery/hooks/useGalleryData.ts`
+fetches page copy (header/tabs/menu/quote) from the static
+`gallery-data.json` as before, but now fetches the gallery images/videos
+themselves from this API (`GET /api/gallery`) and merges the two. The
+frontend always calls relative `/api/...` and `/uploads/...` paths — the
+dev server (`vite.config.ts`) and the production Docker image
+(`frontend/nginx.conf`) both proxy those to this backend, so no origin/CORS
+wiring is needed either way.
 
 Stack: Node.js + Express + TypeScript + PostgreSQL + Prisma + Multer.
 
@@ -115,6 +121,13 @@ duplicating anything (upserts on `[categoryId, filePath]`). `npm run
 typecheck` and `npm run build` also pass locally (this is also how a
 `tsconfig.json` `rootDir` bug that would have made `npm start` look for
 `dist/server.js` in the wrong place got caught and fixed).
+
+The frontend↔backend wiring was also checked in a real browser against the
+full `docker compose` stack: `/gallery` renders the header/tabs/quote from
+the static JSON and the feature/works/showcase grids (4/24/2 items,
+matching the seed) from `GET /api/gallery`; all 30 `<img>` tags point at
+`/uploads/...` and load successfully; both `/gallery-data.json` and
+`/api/gallery` show up as 200s in the network log with no CORS errors.
 
 ## API
 

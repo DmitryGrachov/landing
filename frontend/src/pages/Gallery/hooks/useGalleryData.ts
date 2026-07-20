@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import type { GalleryData } from "../types";
 
-// Fetched from a static JSON file for now. Once a real backend endpoint
-// exists, swap the URL below (and add headers/auth if needed) — every
-// consumer of this hook already works against the same GalleryData shape.
-const GALLERY_DATA_URL = "/gallery-data.json";
+// Header/tabs/menu/quote copy still comes from the static JSON. The actual
+// gallery media comes from the backend so it can be managed (uploaded,
+// deleted, reordered) without a redeploy — see backend/README.md.
+const PAGE_DATA_URL = "/gallery-data.json";
+const GALLERY_API_URL = "/api/gallery";
+
+type PageData = Omit<GalleryData, "gallery">;
+type GalleryMedia = GalleryData["gallery"];
 
 type GalleryDataState =
   | { status: "loading" }
   | { status: "error"; error: string }
   | { status: "success"; data: GalleryData };
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
+  return res.json() as Promise<T>;
+}
 
 export function useGalleryData(): GalleryDataState {
   const [state, setState] = useState<GalleryDataState>({ status: "loading" });
@@ -17,13 +27,9 @@ export function useGalleryData(): GalleryDataState {
   useEffect(() => {
     let cancelled = false;
 
-    fetch(GALLERY_DATA_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load gallery data (${res.status})`);
-        return res.json() as Promise<GalleryData>;
-      })
-      .then((data) => {
-        if (!cancelled) setState({ status: "success", data });
+    Promise.all([fetchJson<PageData>(PAGE_DATA_URL), fetchJson<GalleryMedia>(GALLERY_API_URL)])
+      .then(([page, gallery]) => {
+        if (!cancelled) setState({ status: "success", data: { ...page, gallery } });
       })
       .catch((err: unknown) => {
         if (!cancelled) {
