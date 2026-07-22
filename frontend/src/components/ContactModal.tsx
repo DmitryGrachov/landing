@@ -1,8 +1,28 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Loader2, Mail, User, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Mail, Phone, User, X } from "lucide-react";
 import Button from "./Button";
+
+const RU_PHONE_PATTERN = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+
+function formatRuPhone(raw: string): string {
+  let digits = raw.replace(/\D/g, "");
+  if (digits.length === 0) return "";
+  if (digits[0] === "8") digits = `7${digits.slice(1)}`;
+  if (digits[0] !== "7") digits = `7${digits}`;
+  digits = digits.slice(0, 11);
+
+  const rest = digits.slice(1);
+  let out = "+7";
+  if (rest.length === 0) return out;
+  out += ` (${rest.slice(0, 3)}`;
+  if (rest.length >= 3) out += ")";
+  if (rest.length > 3) out += ` ${rest.slice(3, 6)}`;
+  if (rest.length > 6) out += `-${rest.slice(6, 8)}`;
+  if (rest.length > 8) out += `-${rest.slice(8, 10)}`;
+  return out;
+}
 
 type ContactModalContextValue = {
   openContactModal: (title?: string) => void;
@@ -24,6 +44,7 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const openContactModal = useCallback((t?: string) => {
     setTitle(t ?? "Оставьте заявку");
@@ -31,6 +52,7 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
     setError(null);
     setName("");
     setEmail("");
+    setPhone("");
     setIsOpen(true);
   }, []);
 
@@ -44,7 +66,7 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, source: title }),
+        body: JSON.stringify({ name, email, phone, source: title }),
       });
       if (!res.ok) throw new Error();
       setSubmitted(true);
@@ -122,6 +144,24 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Как к вам обращаться?"
+                          className="w-full bg-transparent text-[14.5px] text-white placeholder:text-ink-faint focus:outline-none"
+                        />
+                      </div>
+                    </label>
+
+                    <label className="flex flex-col gap-2">
+                      <span className="text-[13px] font-medium text-ink-dim">Телефон</span>
+                      <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.09] bg-white/[0.03] px-4 py-3 transition-colors focus-within:border-white/25 focus-within:bg-white/[0.05]">
+                        <Phone className="h-4 w-4 shrink-0 text-ink-faint" />
+                        <input
+                          required
+                          type="tel"
+                          inputMode="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(formatRuPhone(e.target.value))}
+                          pattern={RU_PHONE_PATTERN.source}
+                          title="Введите номер полностью: +7 (999) 123-45-67"
+                          placeholder="+7 (___) ___-__-__"
                           className="w-full bg-transparent text-[14.5px] text-white placeholder:text-ink-faint focus:outline-none"
                         />
                       </div>

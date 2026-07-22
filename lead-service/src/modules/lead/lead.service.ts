@@ -14,6 +14,7 @@ function escapeHtml(value: string): string {
 //   const lines = [
 //     "<b>Новая заявка с сайта</b>",
 //     `Имя: ${escapeHtml(input.name)}`,
+//     `Телефон: ${escapeHtml(input.phone)}`,
 //     `Email: ${escapeHtml(input.email)}`,
 //   ];
 //   if (input.source) lines.push(`Источник: ${escapeHtml(input.source)}`);
@@ -39,6 +40,7 @@ async function notifyEmail(input: CreateLeadInput): Promise<void> {
   const html = [
     "<h2>Новая заявка с сайта</h2>",
     `<p><b>Имя:</b> ${escapeHtml(input.name)}</p>`,
+    `<p><b>Телефон:</b> ${escapeHtml(input.phone)}</p>`,
     `<p><b>Email:</b> ${escapeHtml(input.email)}</p>`,
     input.source ? `<p><b>Источник:</b> ${escapeHtml(input.source)}</p>` : "",
   ].join("\n");
