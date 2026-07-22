@@ -71,14 +71,14 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="mt-20 w-full min-[1536px]:mt-28"
         >
           <HeroVisual />
-        </motion.div>
+        </motion.div> */}
       </Container>
     </section>
   );

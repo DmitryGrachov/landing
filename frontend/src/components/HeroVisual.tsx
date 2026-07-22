@@ -30,13 +30,12 @@ const panels: Panel[] = [
             return (
               <div
                 key={i}
-                className={`h-3.5 rounded-[3px] ${
-                  state === "sold"
+                className={`h-3.5 rounded-[3px] ${state === "sold"
                     ? "bg-white/[0.06]"
                     : state === "reserved"
-                    ? "bg-amber/60"
-                    : "bg-gradient-to-br from-indigo/80 to-cyan/70"
-                }`}
+                      ? "bg-amber/60"
+                      : "bg-gradient-to-br from-indigo/80 to-cyan/70"
+                  }`}
               />
             );
           })}

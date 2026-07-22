@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
+import SystemPreview from "./sections/SystemPreview";
+import Features from "./sections/Features";
 import Pipeline from "./sections/Pipeline";
 import Comparison from "./sections/Comparison";
 import Audiences from "./sections/Audiences";
@@ -23,6 +25,8 @@ function App() {
       <Nav />
       <main>
         <Hero />
+        <SystemPreview rutubeUrl="https://rutube.ru/video/be9b5aece2911aecc68fa03942e25bac/" />
+        <Features />
         <Pipeline />
         <Comparison />
         <Audiences />
