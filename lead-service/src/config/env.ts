@@ -14,4 +14,7 @@ export const env = {
     .filter(Boolean),
   telegramBotToken: required("TELEGRAM_BOT_TOKEN"),
   telegramChatId: required("TELEGRAM_CHAT_ID"),
+  resendApiKey: required("RESEND_API_KEY"),
+  resendFromEmail: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
+  leadNotifyEmail: required("LEAD_NOTIFY_EMAIL"),
 };
