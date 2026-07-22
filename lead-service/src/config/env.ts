@@ -12,8 +12,10 @@ export const env = {
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean),
-  telegramBotToken: required("TELEGRAM_BOT_TOKEN"),
-  telegramChatId: required("TELEGRAM_CHAT_ID"),
+  // Telegram notifications are disabled for now (see lead.service.ts) —
+  // not required so the service can start without them configured.
+  telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+  telegramChatId: process.env.TELEGRAM_CHAT_ID,
   resendApiKey: required("RESEND_API_KEY"),
   resendFromEmail: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
   leadNotifyEmail: required("LEAD_NOTIFY_EMAIL"),
