@@ -30,7 +30,6 @@ export default function Pipeline() {
     <section id="ecosystem" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
-          eyebrow="Единая цифровая сцена"
           title="Одна сцена — весь цикл продаж"
           subtitle="Из одного объекта создаём все цифровые инструменты: от визуализации до передачи интересов в CRM."
         />

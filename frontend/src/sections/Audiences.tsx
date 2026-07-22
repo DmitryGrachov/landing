@@ -36,7 +36,6 @@ export default function Audiences() {
     <section className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
-          eyebrow="Для кого это"
           title="Кому полезен каждый модуль"
           subtitle="Разные участники процесса видят в системе свою ценность."
         />

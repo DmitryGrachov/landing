@@ -64,14 +64,10 @@ export default function Features() {
   return (
     <section className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container>
-        <Reveal className="flex flex-wrap items-center justify-between gap-4">
+        <Reveal>
           <h2 className="text-[30px] font-semibold leading-[1.15] text-white min-[640px]:text-[38px] min-[1536px]:text-[46px]">
             Что входит в проект?
           </h2>
-          <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[13px] font-medium text-ink-dim min-[1536px]:px-5 min-[1536px]:py-2 min-[1536px]:text-[14.5px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-indigo to-cyan" />
-            Функционал
-          </span>
         </Reveal>
 
         <div className="relative mt-10 min-[1536px]:mt-14">

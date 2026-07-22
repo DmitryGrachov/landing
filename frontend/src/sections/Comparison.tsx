@@ -14,7 +14,6 @@ export default function Comparison() {
     <section id="why" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
-          eyebrow="Проблема рынка"
           title="Почему стандартный сайт больше не решает задачу продаж"
           subtitle="Клиент смотрит материалы, уходит и возвращается уже без контекста. Офис продаж начинает диалог заново."
         />

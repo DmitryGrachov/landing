@@ -18,7 +18,6 @@ export default function Impact() {
       <div className="pointer-events-none absolute inset-0 grid-fade opacity-60" />
       <Container className="relative flex flex-col items-center">
         <SectionHeading
-          eyebrow="Эффект"
           title="Сколько денег и времени экономит экосистема"
           subtitle="Не только красиво, но и измеримо."
         />

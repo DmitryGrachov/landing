@@ -71,7 +71,7 @@ export default function RoiCalculator() {
   return (
     <section id="roi" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
-        <SectionHeading eyebrow="Калькулятор" title="Калькулятор эффекта" />
+        <SectionHeading title="Калькулятор эффекта" />
 
         <Reveal delay={0.1} className="mt-6 flex flex-wrap items-center justify-center gap-2">
           {outputs.map((o) => (

@@ -76,7 +76,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
-        <SectionHeading eyebrow="Вопросы" title="Ответы на частые вопросы" />
+        <SectionHeading title="Ответы на частые вопросы" />
 
         <div className="mt-14 flex w-full max-w-[760px] flex-col gap-3 min-[1536px]:max-w-[880px] min-[1536px]:gap-4">
           {faqs.map((f, i) => (

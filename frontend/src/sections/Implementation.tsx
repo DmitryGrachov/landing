@@ -29,7 +29,6 @@ export default function Implementation() {
     <section id="pricing" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
-          eyebrow="Внедрение"
           title="Три формата запуска"
           subtitle="Можно начать с одного блока, развить проект поэтапно или запустить всю экосистему сразу."
         />

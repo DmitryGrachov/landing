@@ -11,21 +11,11 @@ export default function Hero() {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo/25 via-violet/20 to-transparent blur-3xl min-[1920px]:h-[720px] min-[1920px]:w-[1160px]" />
 
       <Container className="relative flex flex-col items-center text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[13px] font-medium text-ink-dim min-[1536px]:px-5 min-[1536px]:py-2 min-[1536px]:text-[14.5px]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-indigo to-cyan animate-pulse-slow" />
-          Единая цифровая экосистема
-        </motion.span>
-
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-7 max-w-[1040px] text-[38px] font-semibold leading-[1.08] text-white min-[640px]:text-[54px] min-[768px]:text-[64px] min-[1536px]:max-w-[1220px] min-[1536px]:text-[78px] min-[1920px]:max-w-[1380px] min-[1920px]:text-[92px] min-[2560px]:text-[104px]"
+          className="max-w-[1040px] text-[38px] font-semibold leading-[1.08] text-white min-[640px]:text-[54px] min-[768px]:text-[64px] min-[1536px]:max-w-[1220px] min-[1536px]:text-[78px] min-[1920px]:max-w-[1380px] min-[1920px]:text-[92px] min-[2560px]:text-[104px]"
         >
           Ускоряем продажи новостроек через <span className="text-gradient">единую цифровую экосистему</span>
         </motion.h1>
