@@ -3,9 +3,11 @@ import Container from "../components/Container";
 import Button from "../components/Button";
 import { ArrowRight, Calculator, PlayCircle } from "lucide-react";
 import { useContactModal } from "../components/ContactModal";
+import { useVideoModal } from "../components/VideoModal";
 
 export default function Hero() {
   const { openContactModal } = useContactModal();
+  const { openVideoModal } = useVideoModal();
 
   return (
     <section id="top" className="relative overflow-hidden pt-40 pb-20 min-[640px]:pt-48 min-[640px]:pb-28 min-[1536px]:pt-56 min-[1536px]:pb-36 min-[1920px]:pt-64 min-[1920px]:pb-44">
@@ -46,11 +48,13 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="mt-9 flex flex-col flex-wrap items-center justify-center gap-3 min-[768px]:flex-row min-[1536px]:mt-14 min-[1536px]:gap-4"
         >
-          <a href="#final-cta">
-            <Button variant="primary" icon={<ArrowRight className="h-4 w-4" />}>
-              Смотреть демо
-            </Button>
-          </a>
+          <Button
+            variant="primary"
+            icon={<ArrowRight className="h-4 w-4" />}
+            onClick={() => openVideoModal()}
+          >
+            Смотреть демо
+          </Button>
           <a href="#roi">
             <Button variant="secondary" icon={<Calculator className="h-4 w-4" />}>
               Посчитать эффект

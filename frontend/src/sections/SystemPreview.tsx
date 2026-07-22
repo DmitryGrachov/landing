@@ -2,11 +2,8 @@ import { PlayCircle } from "lucide-react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
-
-function toRutubeEmbedUrl(url: string) {
-  const id = url.match(/rutube\.ru\/(?:video|play\/embed|shorts)\/([a-zA-Z0-9]+)/)?.[1];
-  return id ? `https://rutube.ru/play/embed/${id}` : url;
-}
+import { useVideoModal } from "../components/VideoModal";
+import { toRutubeEmbedUrl } from "../lib/rutube";
 
 export default function SystemPreview({
   image,
@@ -15,6 +12,8 @@ export default function SystemPreview({
   image?: string;
   rutubeUrl?: string;
 } = {}) {
+  const { openVideoModal } = useVideoModal();
+
   return (
     <section id="demo" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container>
@@ -46,6 +45,7 @@ export default function SystemPreview({
                   <button
                     type="button"
                     aria-label="Смотреть демо"
+                    onClick={() => openVideoModal(rutubeUrl)}
                     className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105 min-[1536px]:h-20 min-[1536px]:w-20"
                   >
                     <div className="ml-1.5 h-0 w-0 border-y-[11px] border-l-[18px] border-y-transparent border-l-[#0a0c13] min-[1536px]:border-y-[13px] min-[1536px]:border-l-[21px]" />
@@ -62,11 +62,13 @@ export default function SystemPreview({
             <p className="max-w-[520px] text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:max-w-[600px] min-[1536px]:text-[18px]">
               За пару минут покажем, как визуализация, сайт проекта, выбор квартир, UE5-тур и CRM работают как единое целое — от первого касания клиента до сделки.
             </p>
-            <a href="#final-cta">
-              <Button variant="primary" icon={<PlayCircle className="h-4 w-4" />}>
-                Смотреть демо
-              </Button>
-            </a>
+            <Button
+              variant="primary"
+              icon={<PlayCircle className="h-4 w-4" />}
+              onClick={() => openVideoModal(rutubeUrl)}
+            >
+              Смотреть демо
+            </Button>
           </Reveal>
         </div>
       </Container>
