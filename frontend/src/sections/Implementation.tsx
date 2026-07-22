@@ -2,6 +2,7 @@ import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 import Button from "../components/Button";
+import { useContactModal } from "../components/ContactModal";
 
 const tiers = [
   {
@@ -25,6 +26,8 @@ const tiers = [
 ];
 
 export default function Implementation() {
+  const { openContactModal } = useContactModal();
+
   return (
     <section id="pricing" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
@@ -50,11 +53,13 @@ export default function Implementation() {
                 <div className="text-[18px] font-medium text-white min-[1536px]:text-[21px]">{t.name}</div>
                 <p className="mt-3 flex-1 text-[14px] leading-relaxed text-ink-dim min-[1536px]:text-[16px]">{t.tagline}</p>
 
-                <a href="#final-cta" className="mt-8">
-                  <Button variant={t.featured ? "primary" : "secondary"} className="w-full">
-                    {t.cta}
-                  </Button>
-                </a>
+                <Button
+                  variant={t.featured ? "primary" : "secondary"}
+                  className="mt-8 w-full"
+                  onClick={() => openContactModal(t.cta)}
+                >
+                  {t.cta}
+                </Button>
               </div>
             </Reveal>
           ))}

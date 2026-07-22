@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { ContactModalProvider } from "./components/ContactModal";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
 import SystemPreview from "./sections/SystemPreview";
@@ -21,23 +22,25 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-canvas">
-      <Nav />
-      <main>
-        <Hero />
-        <SystemPreview rutubeUrl="https://rutube.ru/video/230659ccc9a1d93c482bfd667e1ba8ee/?playlist=505201" />
-        <Features />
-        <Pipeline />
-        <Comparison />
-        <Audiences />
-        <Impact />
-        <RoiCalculator />
-        <Implementation />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <ContactModalProvider>
+      <div className="relative min-h-screen bg-canvas">
+        <Nav />
+        <main>
+          <Hero />
+          <SystemPreview rutubeUrl="https://rutube.ru/video/230659ccc9a1d93c482bfd667e1ba8ee/?playlist=505201" />
+          <Features />
+          <Pipeline />
+          <Comparison />
+          <Audiences />
+          <Impact />
+          <RoiCalculator />
+          <Implementation />
+          <FAQ />
+          <FinalCTA />
+        </main>
+        <Footer />
+      </div>
+    </ContactModalProvider>
   );
 }
 

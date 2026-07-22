@@ -3,8 +3,11 @@ import { ArrowRight, Calculator, MessageSquare } from "lucide-react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
+import { useContactModal } from "../components/ContactModal";
 
 export default function FinalCTA() {
+  const { openContactModal } = useContactModal();
+
   return (
     <section id="final-cta" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container>
@@ -38,7 +41,11 @@ export default function FinalCTA() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative mt-10 flex flex-col flex-wrap items-center justify-center gap-3 min-[768px]:flex-row min-[1536px]:mt-14 min-[1536px]:gap-4"
             >
-              <Button variant="primary" icon={<ArrowRight className="h-4 w-4" />}>
+              <Button
+                variant="primary"
+                icon={<ArrowRight className="h-4 w-4" />}
+                onClick={() => openContactModal("Запросить демо")}
+              >
                 Запросить демо
               </Button>
               <a href="#roi">
@@ -46,7 +53,11 @@ export default function FinalCTA() {
                   Посчитать ROI
                 </Button>
               </a>
-              <Button variant="secondary" icon={<MessageSquare className="h-4 w-4" />}>
+              <Button
+                variant="secondary"
+                icon={<MessageSquare className="h-4 w-4" />}
+                onClick={() => openContactModal("Обсудить комплексный запуск")}
+              >
                 Обсудить комплексный запуск
               </Button>
             </motion.div>

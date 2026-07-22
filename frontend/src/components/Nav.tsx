@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Container from "./Container";
 import Logo from "./Logo";
 import Button from "./Button";
+import { useContactModal } from "./ContactModal";
 
 const links = [
   { label: "Экосистема", href: "#ecosystem" },
@@ -15,6 +16,7 @@ const links = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const { openContactModal } = useContactModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -56,11 +58,14 @@ export default function Nav() {
                 Посчитать эффект
               </Button>
             </a>
-            <a href="#final-cta">
-              <Button variant="primary" size="md" className="whitespace-nowrap">
-                Запросить демо
-              </Button>
-            </a>
+            <Button
+              variant="primary"
+              size="md"
+              className="whitespace-nowrap"
+              onClick={() => openContactModal("Запросить демо")}
+            >
+              Запросить демо
+            </Button>
           </div>
         </div>
       </Container>

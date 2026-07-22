@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import { ArrowRight, Calculator, PlayCircle } from "lucide-react";
+import { useContactModal } from "../components/ContactModal";
 
 export default function Hero() {
+  const { openContactModal } = useContactModal();
+
   return (
     <section id="top" className="relative overflow-hidden pt-40 pb-20 min-[640px]:pt-48 min-[640px]:pb-28 min-[1536px]:pt-56 min-[1536px]:pb-36 min-[1920px]:pt-64 min-[1920px]:pb-44">
       <div className="pointer-events-none absolute inset-0 grid-fade" />
@@ -53,11 +56,14 @@ export default function Hero() {
               Посчитать эффект
             </Button>
           </a>
-          <a href="#final-cta">
-            <Button variant="ghost" size="md" icon={<PlayCircle className="h-4 w-4" />}>
-              Обсудить запуск
-            </Button>
-          </a>
+          <Button
+            variant="ghost"
+            size="md"
+            icon={<PlayCircle className="h-4 w-4" />}
+            onClick={() => openContactModal("Обсудить запуск")}
+          >
+            Обсудить запуск
+          </Button>
         </motion.div>
 
         {/* <motion.div
