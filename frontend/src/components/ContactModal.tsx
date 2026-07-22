@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Mail, User, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Mail, User, X } from "lucide-react";
 import Button from "./Button";
 
 type ContactModalContextValue = {
@@ -20,12 +20,15 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("Оставьте заявку");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const openContactModal = useCallback((t?: string) => {
     setTitle(t ?? "Оставьте заявку");
     setSubmitted(false);
+    setError(null);
     setName("");
     setEmail("");
     setIsOpen(true);
@@ -33,9 +36,23 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
 
   const close = () => setIsOpen(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, source: title }),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setError("Не получилось отправить заявку. Попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -125,13 +142,22 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
                       </div>
                     </label>
 
+                    {error && <p className="text-[13px] text-red-300">{error}</p>}
+
                     <Button
                       type="submit"
                       variant="primary"
                       className="mt-2 w-full"
-                      icon={<ArrowRight className="h-4 w-4" />}
+                      disabled={isSubmitting}
+                      icon={
+                        isSubmitting ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <ArrowRight className="h-4 w-4" />
+                        )
+                      }
                     >
-                      Отправить
+                      {isSubmitting ? "Отправляем…" : "Отправить"}
                     </Button>
                   </form>
                 </div>

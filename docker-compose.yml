@@ -3,5 +3,14 @@ services:
     build:
       context: ./frontend
     restart: unless-stopped
+    depends_on:
+      - lead-service
     ports:
       - "127.0.0.1:5173:80"
+
+  lead-service:
+    build:
+      context: ./lead-service
+    restart: unless-stopped
+    env_file:
+      - ./lead-service/.env

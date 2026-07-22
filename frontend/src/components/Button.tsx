@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type Variant = "primary" | "secondary" | "ghost";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap select-none cursor-pointer";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap select-none cursor-pointer disabled:pointer-events-none disabled:opacity-60";
 
 const sizes = {
   md: "px-5 py-2.5 text-[14px] min-[1536px]:px-6 min-[1536px]:py-3 min-[1536px]:text-[15px]",
