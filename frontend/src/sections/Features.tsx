@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Building2, Sofa, DoorOpen, Trees, Sun, LayoutGrid } from "lucide-react";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
@@ -52,6 +52,28 @@ const features: Feature[] = [
 
 export default function Features() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const raf = requestAnimationFrame(updateScrollState);
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
 
   const scroll = (dir: 1 | -1) => {
     const el = trackRef.current;
@@ -71,11 +93,16 @@ export default function Features() {
         </Reveal>
 
         <div className="relative mt-10 min-[1536px]:mt-14">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-canvas to-transparent min-[1536px]:w-16" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-canvas to-transparent min-[1536px]:w-16" />
+          {canScrollLeft && (
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-canvas via-canvas/70 to-transparent min-[1536px]:w-20" />
+          )}
+          {canScrollRight && (
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-canvas via-canvas/70 to-transparent min-[1536px]:w-20" />
+          )}
 
           <div
             ref={trackRef}
+            style={{ overflowAnchor: "none" }}
             className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
@@ -107,22 +134,26 @@ export default function Features() {
             ))}
           </div>
 
-          <button
-            type="button"
-            aria-label="Прокрутить влево"
-            onClick={() => scroll(-1)}
-            className="glass absolute left-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            aria-label="Прокрутить вправо"
-            onClick={() => scroll(1)}
-            className="glass absolute right-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {canScrollLeft && (
+            <button
+              type="button"
+              aria-label="Прокрутить влево"
+              onClick={() => scroll(-1)}
+              className="glass absolute left-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              type="button"
+              aria-label="Прокрутить вправо"
+              onClick={() => scroll(1)}
+              className="glass absolute right-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </Container>
     </section>

@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import Container from "../components/Container";
 import Button from "../components/Button";
-import HeroVisual from "../components/HeroVisual";
 import { ArrowRight, Calculator, PlayCircle } from "lucide-react";
 
 export default function Hero() {

@@ -25,7 +25,7 @@ function App() {
       <Nav />
       <main>
         <Hero />
-        <SystemPreview rutubeUrl="https://rutube.ru/video/be9b5aece2911aecc68fa03942e25bac/" />
+        <SystemPreview rutubeUrl="https://rutube.ru/video/230659ccc9a1d93c482bfd667e1ba8ee/?playlist=505201" />
         <Features />
         <Pipeline />
         <Comparison />
