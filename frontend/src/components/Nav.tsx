@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Container from "./Container";
 import Logo from "./Logo";
 import Button from "./Button";
@@ -16,6 +16,7 @@ const links = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { openContactModal } = useContactModal();
 
   useEffect(() => {
@@ -24,6 +25,21 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    document.body.style.overflow = "hidden";
+    const onResize = () => {
+      if (window.innerWidth >= 1280) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("resize", onResize);
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <motion.header
@@ -38,7 +54,7 @@ export default function Nav() {
             scrolled ? "glass-strong shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : "border border-transparent"
           }`}
         >
-          <a href="#top" className="shrink-0">
+          <a href="#top" className="shrink-0" onClick={closeMenu}>
             <Logo />
           </a>
           <nav className="hidden items-center gap-0.5 min-[1280px]:flex min-[1536px]:gap-1">
@@ -58,17 +74,89 @@ export default function Nav() {
                 Посчитать эффект
               </Button>
             </a>
-            <Button
-              variant="primary"
-              size="md"
-              className="whitespace-nowrap"
-              onClick={() => openContactModal("Запросить демо")}
+            <div className="hidden min-[1280px]:block">
+              <Button
+                variant="primary"
+                size="md"
+                className="whitespace-nowrap"
+                onClick={() => openContactModal("Запросить демо")}
+              >
+                Запросить демо
+              </Button>
+            </div>
+            <button
+              type="button"
+              aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/[0.06] min-[1280px]:hidden"
             >
-              Запросить демо
-            </Button>
+              <span className="relative flex h-4 w-5 flex-col justify-between">
+                <motion.span
+                  animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="h-[1.5px] w-full origin-center rounded-full bg-white"
+                />
+                <motion.span
+                  animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{ duration: 0.15 }}
+                  className="h-[1.5px] w-full rounded-full bg-white"
+                />
+                <motion.span
+                  animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="h-[1.5px] w-full origin-center rounded-full bg-white"
+                />
+              </span>
+            </button>
           </div>
         </div>
       </Container>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="min-[1280px]:hidden"
+          >
+            <Container className="pt-2">
+              <nav className="glass-strong flex flex-col gap-1 rounded-2xl p-3">
+                {links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={closeMenu}
+                    className="rounded-xl px-4 py-3 text-[15px] font-medium text-ink-dim transition-colors hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+                <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
+                  <a href="#roi" onClick={closeMenu}>
+                    <Button variant="secondary" size="md" className="w-full">
+                      Посчитать эффект
+                    </Button>
+                  </a>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    className="w-full"
+                    onClick={() => {
+                      closeMenu();
+                      openContactModal("Запросить демо");
+                    }}
+                  >
+                    Запросить демо
+                  </Button>
+                </div>
+              </nav>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
