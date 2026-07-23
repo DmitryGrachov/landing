@@ -40,6 +40,9 @@ export default function Pipeline() {
           <p className="mt-4 text-[14px] italic text-ink-faint min-[1536px]:text-[16px]">
             «Всё делается одной командой в едином стиле без поиска чужих рук»
           </p>
+          <p className="mt-5 text-[16px] font-semibold text-white min-[1536px]:text-[18.5px]">
+            Единая цифровая сцена позволяет выдавать весь контент параллельно за 30-60-90 и 120 дней
+          </p>
         </Reveal>
 
         <div className="mt-14 w-full min-[1536px]:mt-20">

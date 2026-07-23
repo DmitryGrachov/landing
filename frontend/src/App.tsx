@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { ContactModalProvider } from "./components/ContactModal";
 import { VideoModalProvider } from "./components/VideoModal";
+import { StreamModalProvider } from "./components/StreamModal";
 import { systemModules } from "./content/systemModules";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
@@ -26,37 +27,43 @@ function App() {
   return (
     <ContactModalProvider>
       <VideoModalProvider>
-        <div className="relative min-h-screen bg-canvas">
-          <Nav />
-          <main>
-            <Hero />
-            {systemModules.map((mod) => (
-              <Fragment key={mod.id}>
-                <SystemPreview
-                  id={mod.id}
-                  eyebrow={mod.eyebrow}
-                  title={mod.title}
-                  description={mod.description}
-                  audience={mod.audience}
-                  buttonLabel={mod.buttonLabel}
-                  previewImage={mod.previewImage}
-                  previewVideoUrl={mod.previewVideoUrl}
-                  modalVideoUrl={mod.modalVideoUrl}
-                />
-                <Features heading={mod.featuresHeading} features={mod.features} />
-              </Fragment>
-            ))}
-            <Comparison />
-            <Pipeline />
-            <Impact />
-            <RoiCalculator />
-            <Audiences />
-            <Implementation />
-            <FAQ />
-            <FinalCTA />
-          </main>
-          <Footer />
-        </div>
+        <StreamModalProvider>
+          <div className="relative min-h-screen bg-canvas">
+            <Nav />
+            <main>
+              <Hero />
+              {systemModules.map((mod) => (
+                <Fragment key={mod.id}>
+                  <SystemPreview
+                    id={mod.id}
+                    eyebrow={mod.eyebrow}
+                    title={mod.title}
+                    description={mod.description}
+                    audience={mod.audience}
+                    buttonLabel={mod.buttonLabel}
+                    showDemoButton={mod.showDemoButton}
+                    previewImage={mod.previewImage}
+                    previewVideoUrl={mod.previewVideoUrl}
+                    modalVideoUrl={mod.modalVideoUrl}
+                    downloadLabel={mod.downloadLabel}
+                    downloadHref={mod.downloadHref}
+                    streamUrl={mod.streamUrl}
+                  />
+                  <Features heading={mod.featuresHeading} features={mod.features} />
+                </Fragment>
+              ))}
+              <Comparison />
+              <Pipeline />
+              <Impact />
+              <RoiCalculator />
+              <Audiences />
+              <Implementation />
+              <FAQ />
+              <FinalCTA />
+            </main>
+            <Footer />
+          </div>
+        </StreamModalProvider>
       </VideoModalProvider>
     </ContactModalProvider>
   );

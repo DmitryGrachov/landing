@@ -18,12 +18,20 @@ export type SystemModule = {
   /** Короткие теги "кому подходит модуль", показываются над кнопкой */
   audience?: string[];
   buttonLabel?: string;
+  /** Показывать ли основную кнопку демо (например, скрыть, если для модуля есть только downloadLabel) */
+  showDemoButton?: boolean;
   /** Видео, показанное встроенным на старте (в блоке SystemPreview) */
   previewVideoUrl?: string;
   /** Картинка-заглушка, если previewVideoUrl не задан */
   previewImage?: string;
   /** Видео, которое откроется в модалке — если не задано, берётся previewVideoUrl */
   modalVideoUrl?: string;
+  /** Текст доп. кнопки для скачивания файла (например, "Смотреть результат") */
+  downloadLabel?: string;
+  /** Ссылка на файл (бланк), который скачается по клику на downloadLabel */
+  downloadHref?: string;
+  /** Если задано — кнопка демо открывает полноэкранный UE5 pixel-streaming в iframe вместо видео */
+  streamUrl?: string;
   featuresHeading: string;
   features: FeatureCard[];
 };
@@ -37,6 +45,8 @@ export const systemModules: SystemModule[] = [
       "TODO: описание блока 2",
     audience: ["Отдел продаж", "Горячие лиды", "Агенты"],
     previewVideoUrl: DEMO_VIDEO_URL,
+    // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
+    streamUrl: "http://5.129.249.206:7701/",
     featuresHeading: "Что входит в проект?",
     features: [
       {
@@ -100,6 +110,7 @@ export const systemModules: SystemModule[] = [
     audience: ["Отдел продаж", "Холодные лиды", "Горячие лиды", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
+    streamUrl: "http://5.129.249.206:7701/",
     featuresHeading: "Что входит в проект?",
     features: [
       {
@@ -156,8 +167,12 @@ export const systemModules: SystemModule[] = [
     title: "Единая цифровая Экосистема",
     description: "TODO: описание блока 3",
     audience: ["Отдел продаж", "Агенты"],
+    showDemoButton: false,
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
+    // TODO: подставить реальную ссылку на бланк, когда файл будет готов
+    downloadLabel: "Смотреть результат",
+    downloadHref: undefined,
     featuresHeading: "Что входит в проект?",
     features: [
       {
@@ -206,6 +221,8 @@ export const systemModules: SystemModule[] = [
     audience: ["Отдел продаж", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
+    // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
+    streamUrl: "http://5.129.249.206:7701/",
     featuresHeading: "Что входит в проект?",
     features: [
       {

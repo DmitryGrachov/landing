@@ -1,8 +1,9 @@
-import { PlayCircle } from "lucide-react";
+import { Download, PlayCircle } from "lucide-react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
 import { useVideoModal } from "../components/VideoModal";
+import { useStreamModal } from "../components/StreamModal";
 import { toRutubeEmbedUrl } from "../lib/rutube";
 
 export default function SystemPreview({
@@ -12,9 +13,13 @@ export default function SystemPreview({
   description,
   audience,
   buttonLabel = "Запустить демо",
+  showDemoButton = true,
   previewImage,
   previewVideoUrl,
   modalVideoUrl,
+  downloadLabel,
+  downloadHref,
+  streamUrl,
 }: {
   id?: string;
   eyebrow?: string;
@@ -22,12 +27,22 @@ export default function SystemPreview({
   description: string;
   audience?: string[];
   buttonLabel?: string;
+  /** Показывать ли основную кнопку демо (например, скрыть, если для модуля есть только downloadLabel) */
+  showDemoButton?: boolean;
   previewImage?: string;
   previewVideoUrl?: string;
   modalVideoUrl?: string;
+  /** Текст доп. кнопки для скачивания файла (например, "Смотреть результат") */
+  downloadLabel?: string;
+  /** Ссылка на файл, который скачается по клику на downloadLabel */
+  downloadHref?: string;
+  /** Если задано — кнопка демо открывает полноэкранный UE5-стрим в iframe вместо видео */
+  streamUrl?: string;
 }) {
   const { openVideoModal } = useVideoModal();
+  const { openStreamModal } = useStreamModal();
   const videoForModal = modalVideoUrl ?? previewVideoUrl;
+  const openDemo = () => (streamUrl ? openStreamModal(streamUrl) : openVideoModal(videoForModal));
 
   return (
     <section id={id} className="relative pt-28 min-[640px]:pt-36 min-[1536px]:pt-44 min-[1920px]:pt-52">
@@ -60,7 +75,7 @@ export default function SystemPreview({
                   <button
                     type="button"
                     aria-label={buttonLabel}
-                    onClick={() => openVideoModal(videoForModal)}
+                    onClick={openDemo}
                     className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105 min-[1536px]:h-20 min-[1536px]:w-20"
                   >
                     <div className="ml-1.5 h-0 w-0 border-y-[11px] border-l-[18px] border-y-transparent border-l-[#0a0c13] min-[1536px]:border-y-[13px] min-[1536px]:border-l-[21px]" />
@@ -92,13 +107,24 @@ export default function SystemPreview({
                 </div>
               </div>
             )}
-            <Button
-              variant="primary"
-              icon={<PlayCircle className="h-4 w-4" />}
-              onClick={() => openVideoModal(videoForModal)}
-            >
-              {buttonLabel}
-            </Button>
+            <div className="flex flex-wrap items-center gap-3">
+              {showDemoButton && (
+                <Button
+                  variant="primary"
+                  icon={<PlayCircle className="h-4 w-4" />}
+                  onClick={openDemo}
+                >
+                  {buttonLabel}
+                </Button>
+              )}
+              {downloadLabel && (
+                <a href={downloadHref ?? "#"} download>
+                  <Button variant={showDemoButton ? "secondary" : "primary"} icon={<Download className="h-4 w-4" />}>
+                    {downloadLabel}
+                  </Button>
+                </a>
+              )}
+            </div>
           </Reveal>
         </div>
       </Container>
