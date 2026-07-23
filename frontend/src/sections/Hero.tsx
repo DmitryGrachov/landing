@@ -48,21 +48,13 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="mt-9 flex flex-col flex-wrap items-center justify-center gap-3 min-[768px]:flex-row min-[1536px]:mt-14 min-[1536px]:gap-4"
         >
-          <Button
-            variant="primary"
-            icon={<ArrowRight className="h-4 w-4" />}
-            onClick={() => openVideoModal()}
-          >
-            Смотреть демо
-          </Button>
           <a href="#roi">
-            <Button variant="secondary" icon={<Calculator className="h-4 w-4" />}>
+            <Button variant="primary" icon={<Calculator className="h-4 w-4" />}>
               Посчитать эффект
             </Button>
           </a>
           <Button
-            variant="ghost"
-            size="md"
+            variant="secondary"
             icon={<PlayCircle className="h-4 w-4" />}
             onClick={() => openContactModal("Обсудить запуск")}
           >

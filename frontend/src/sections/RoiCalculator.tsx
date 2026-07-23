@@ -52,11 +52,11 @@ const outputs = [
 ];
 
 export default function RoiCalculator() {
-  const [units, setUnits] = useState(120);
-  const [price, setPrice] = useState(9000000);
-  const [financing, setFinancing] = useState(8);
-  const [period, setPeriod] = useState(18);
-  const [conversion, setConversion] = useState(12);
+  const [units, setUnits] = useState(200);
+  const [price, setPrice] = useState(13500000);
+  const [financing, setFinancing] = useState(13.5);
+  const [period, setPeriod] = useState(23);
+  const [conversion, setConversion] = useState(7);
 
   const results = useMemo(() => {
     const inventoryValue = units * price;

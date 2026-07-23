@@ -7,9 +7,9 @@ import Reveal from "../components/Reveal";
 const kpis = [
   { module: "Визуализация", value: "+10–20%", label: "к вовлечению", trend: "up", width: 55 },
   { module: "Веб-макет", value: "+15–30%", label: "к времени на сайте", trend: "up", width: 65 },
-  { module: "UE5", value: "+10–25%", label: "к записи в офис", trend: "up", width: 60 },
+  { module: "UE5-макет", value: "+10–25%", label: "к записи в офис", trend: "up", width: 60 },
   { module: "CRM и скоринг", value: "+10–25%", label: "к эффективности продаж", trend: "up", width: 60 },
-  { module: "Полный контур", value: "до −10–25%", label: "к сроку реализации", trend: "down", width: 75 },
+  { module: "Полный контур", value: "до −10–25%", label: "к сроку реализации ЖК", trend: "down", width: 75 },
 ];
 
 export default function Impact() {

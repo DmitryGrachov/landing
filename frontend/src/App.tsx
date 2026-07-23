@@ -47,9 +47,9 @@ function App() {
             ))}
             <Comparison />
             <Pipeline />
-            <Audiences />
             <Impact />
             <RoiCalculator />
+            <Audiences />
             <Implementation />
             <FAQ />
             <FinalCTA />

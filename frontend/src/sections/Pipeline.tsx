@@ -17,10 +17,9 @@ import Reveal from "../components/Reveal";
 const modules = [
   { icon: Image, label: "Визуализация" },
   { icon: Clapperboard, label: "Видео" },
-  { icon: Globe, label: "Сайт проекта" },
-  { icon: Map, label: "Интерактивный генплан" },
+  { icon: Gamepad2, label: "Интерактивный UE5 макет" },
+  { icon: Globe, label: "Интерактивный WEB макет" },
   { icon: LayoutGrid, label: "Выбор квартир и избранное" },
-  { icon: Gamepad2, label: "UE5-демо" },
   { icon: QrCode, label: "QR и личный кабинет" },
   { icon: BarChart3, label: "CRM и скоринг" },
 ];
@@ -30,13 +29,13 @@ export default function Pipeline() {
     <section id="ecosystem" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
       <Container className="flex flex-col items-center">
         <SectionHeading
-          title="Одна сцена — весь цикл продаж"
+          title="Одна сцена — Скорость выхода на продажи"
           subtitle="Из одного объекта создаём все цифровые инструменты: от визуализации до передачи интересов в CRM."
         />
 
         <Reveal delay={0.1} className="mt-6 max-w-[760px] text-center min-[1536px]:max-w-[880px]">
           <p className="text-[15px] leading-relaxed text-ink-dim min-[1536px]:text-[17px]">
-            Мы не делаем набор разрозненных материалов. Мы строим единую цифровую сцену проекта, из которой рождаются рендеры, видео, сайт, интерактивный макет, UE5-демо и аналитика покупателя. Это позволяет использовать один контентный слой во всех каналах продаж.
+            Мы не делаем набор разрозненных материалов. Мы строим единую цифровую сцену проекта, из которой рождаются рендеры, видео, интерактивный макет UE5, WEB макет и аналитика покупателя. Это позволяет использовать один контентный слой во всех каналах продаж.
           </p>
           <p className="mt-4 text-[14px] italic text-ink-faint min-[1536px]:text-[16px]">
             «Всё делается одной командой в едином стиле без поиска чужих рук»

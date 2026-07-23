@@ -13,7 +13,7 @@ const tiers = [
   },
   {
     name: "Поэтапно",
-    tagline: "Сначала сайт и визуализация, затем интерактивный макет, потом UE5 и CRM.",
+    tagline: "Сначала  визуализация, затем WEB макет, потом UE5 макет и CRM и скоринг.",
     cta: "Обсудить запуск",
     featured: true,
   },
@@ -46,9 +46,8 @@ export default function Implementation() {
           {tiers.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.08} className="h-full">
               <div
-                className={`relative flex h-full flex-col rounded-3xl p-7 min-[1536px]:p-9 ${
-                  t.featured ? "glass-strong ring-1 ring-white/20" : "panel"
-                }`}
+                className={`relative flex h-full flex-col rounded-3xl p-7 min-[1536px]:p-9 ${t.featured ? "glass-strong ring-1 ring-white/20" : "panel"
+                  }`}
               >
                 <div className="text-[18px] font-medium text-white min-[1536px]:text-[21px]">{t.name}</div>
                 <p className="mt-3 flex-1 text-[14px] leading-relaxed text-ink-dim min-[1536px]:text-[16px]">{t.tagline}</p>
