@@ -270,7 +270,7 @@ export default function Features({
               type="button"
               aria-label="Прокрутить влево"
               onClick={() => scroll(-1)}
-              className="glass absolute left-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
+              className="glass absolute left-1 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -280,7 +280,7 @@ export default function Features({
               type="button"
               aria-label="Прокрутить вправо"
               onClick={() => scroll(1)}
-              className="glass absolute right-1 top-[38%] z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
+              className="glass absolute right-1 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-white transition-transform hover:scale-105 min-[900px]:flex min-[1536px]:h-12 min-[1536px]:w-12"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
