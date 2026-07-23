@@ -78,7 +78,7 @@ export default function Features({
           <div
             ref={trackRef}
             style={{ overflowAnchor: "none" }}
-            className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 min-[1536px]:gap-6"
+            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
               <Reveal key={f.title} delay={i * 0.05} className="w-full shrink-0 snap-start min-[820px]:w-auto">
