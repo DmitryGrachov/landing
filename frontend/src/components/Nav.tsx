@@ -6,12 +6,12 @@ import Button from "./Button";
 import { useContactModal } from "./ContactModal";
 
 const links = [
-  { label: "Экосистема", href: "#ecosystem" },
-  { label: "Почему мы", href: "#why" },
-  { label: "Эффект", href: "#impact" },
-  { label: "Калькулятор", href: "#roi" },
-  { label: "Внедрение", href: "#pricing" },
-  { label: "Вопросы", href: "#faq" },
+  { label: "Интерактивный макет UE5", href: "#1" },
+  { label: "WEB макет", href: "#2" },
+  { label: "Экосистема", href: "#3" },
+  { label: "Единая сцена", href: "#ecosystem" },
+  { label: "Запуск", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Nav() {
