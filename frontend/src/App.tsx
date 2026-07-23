@@ -37,6 +37,7 @@ function App() {
                   eyebrow={mod.eyebrow}
                   title={mod.title}
                   description={mod.description}
+                  audience={mod.audience}
                   buttonLabel={mod.buttonLabel}
                   previewImage={mod.previewImage}
                   previewVideoUrl={mod.previewVideoUrl}

@@ -44,7 +44,7 @@ export default function Features({
   };
 
   return (
-    <section className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
+    <section className="relative pb-28 pt-10 min-[640px]:pb-36 min-[640px]:pt-14 min-[1536px]:pb-44 min-[1536px]:pt-16 min-[1920px]:pb-52 min-[1920px]:pt-20">
       <Container>
         <Reveal>
           <h2 className="text-[30px] font-semibold leading-[1.15] text-white min-[640px]:text-[38px] min-[1536px]:text-[46px]">

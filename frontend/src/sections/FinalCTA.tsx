@@ -41,13 +41,6 @@ export default function FinalCTA() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative mt-10 flex flex-col flex-wrap items-center justify-center gap-3 min-[768px]:flex-row min-[1536px]:mt-14 min-[1536px]:gap-4"
             >
-              <Button
-                variant="primary"
-                icon={<ArrowRight className="h-4 w-4" />}
-                onClick={() => openContactModal("Запросить демо")}
-              >
-                Запросить демо
-              </Button>
               <a href="#roi">
                 <Button variant="secondary" icon={<Calculator className="h-4 w-4" />}>
                   Посчитать ROI

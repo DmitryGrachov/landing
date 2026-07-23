@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Building2, Sofa, DoorOpen, Trees, Sun, LayoutGrid } from "lucide-react";
+import { Building2, Sofa, Square, DoorOpen, Trees, Search, Calculator, TabletSmartphone, Blocks, Sun } from "lucide-react";
 import { DEMO_VIDEO_URL } from "../lib/rutube";
 
 export type FeatureCard = {
@@ -15,6 +15,8 @@ export type SystemModule = {
   eyebrow: string;
   title: string;
   description: string;
+  /** Короткие теги "кому подходит модуль", показываются над кнопкой */
+  audience?: string[];
   buttonLabel?: string;
   /** Видео, показанное встроенным на старте (в блоке SystemPreview) */
   previewVideoUrl?: string;
@@ -28,77 +30,199 @@ export type SystemModule = {
 
 export const systemModules: SystemModule[] = [
   {
-    id: "demo",
+    id: "1",
     eyebrow: "О системе",
     title: "Интерактивный макет UE5",
     description:
-      "За пару минут покажем, как визуализация, сайт проекта, выбор квартир, UE5-тур и CRM работают как единое целое — от первого касания клиента до сделки.",
+      "TODO: описание блока 2",
+    audience: ["Отдел продаж", "Горячие лиды", "Агенты"],
     previewVideoUrl: DEMO_VIDEO_URL,
     featuresHeading: "Что входит в проект?",
     features: [
       {
-        title: "Обзор ЖК",
-        description: "Обзор жилого комплекса и его окружения",
+        title: "Обзор жилого комплекса",
+        description: "Описание",
         icon: Building2,
       },
       {
-        title: "Исследование интерьера",
-        description: "Прогулка по будущей квартире покупателя от 1-го лица",
-        icon: Sofa,
-      },
-      {
-        title: "Обзор зон благоустройства",
-        description: "Отображение мест общего пользования: зелёные зоны, детские и спортивные площадки",
+        title: "Прогулка по Благоустройству",
+        description: "Описание",
         icon: Trees,
       },
       {
+        title: "Тур по Интерьерам квартир",
+        description: "Описание",
+        icon: Sofa,
+      },
+      {
         title: "Реальный вид из окна",
-        description: "Демонстрация реального вида из окна будущей квартиры покупателя",
+        description: "Описание",
         icon: DoorOpen,
       },
       {
-        title: "Смена времени суток",
-        description: "Переключение освещения дня и ночи для оценки атмосферы проекта",
+        title: "3D Планы этажей",
+        description: "Описание",
+        icon: Square,
+      },
+      {
+        title: "Движение солнца и теней ",
+        description: "Описание",
         icon: Sun,
       },
       {
-        title: "Расстановка мебели",
-        description: "Визуализация вариантов меблировки и планировочных решений",
-        icon: LayoutGrid,
+        title: "Поиск недвижимости",
+        description: "Описание",
+        icon: Search,
+      },
+      {
+        title: "Кредитный калькулятор",
+        description: "Описание",
+        icon: Calculator,
+      },
+      {
+        title: "Интеграция с CRM",
+        description: "Описание",
+        icon: Blocks,
+      },
+      {
+        title: "Доступность на ПК и WEB",
+        description: "Описание",
+        icon: TabletSmartphone,
       },
     ],
   },
   {
     // TODO: заменить на реальные тексты/видео/карточки
-    id: "demo-2",
+    id: "2",
     eyebrow: "О системе",
-    title: "TODO: заголовок блока 2",
+    title: "Интерактивный макет WEB",
     description: "TODO: описание блока 2",
+    audience: ["Отдел продаж", "Холодные лиды", "Горячие лиды", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
-    featuresHeading: "TODO: заголовок карточек блока 2",
-    features: [],
+    featuresHeading: "Что входит в проект?",
+    features: [
+      {
+        title: "Обзор жилого комплекса",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Прогулка по Благоустройству",
+        description: "Описание",
+        icon: Trees,
+      },
+      {
+        title: "Тур по Интерьерам квартир",
+        description: "Описание",
+        icon: Sofa,
+      },
+      {
+        title: "Реальный вид из окна",
+        description: "Описание",
+        icon: DoorOpen,
+      },
+      {
+        title: "Планы этажей",
+        description: "Описание",
+        icon: Square,
+      },
+      {
+        title: "Поиск недвижимости",
+        description: "Описаниея",
+        icon: Search,
+      },
+      {
+        title: "Кредитный калькулятор",
+        description: "Описание",
+        icon: Calculator,
+      },
+      {
+        title: "Интеграция с CRM",
+        description: "Описание",
+        icon: Blocks,
+      },
+      {
+        title: "Доступность на Смартфонах, Планшетах и ПК",
+        description: "Описание",
+        icon: TabletSmartphone,
+      },
+    ],
   },
   {
     // TODO: заменить на реальные тексты/видео/карточки
-    id: "demo-3",
+    id: "3",
     eyebrow: "О системе",
-    title: "TODO: заголовок блока 3",
+    title: "Единая цифровая Экосистема",
     description: "TODO: описание блока 3",
+    audience: ["Отдел продаж", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
-    featuresHeading: "TODO: заголовок карточек блока 3",
-    features: [],
+    featuresHeading: "Что входит в проект?",
+    features: [
+      {
+        title: "Личный кабинет покупателя",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Сохранение избранного",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Аналитика сессий",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Аналитика поведения",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Срокинг",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Передача данных в СРМ",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Тепловая карта интереса аудитории",
+        description: "Описание",
+        icon: Building2,
+      },
+    ],
   },
   {
     // TODO: заменить на реальные тексты/видео/карточки
-    id: "demo-4",
+    id: "4",
     eyebrow: "О системе",
-    title: "TODO: заголовок блока 4",
+    title: "Удаленный офис продаж",
     description: "TODO: описание блока 4",
+    audience: ["Отдел продаж", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
-    featuresHeading: "TODO: заголовок карточек блока 4",
-    features: [],
+    featuresHeading: "Что входит в проект?",
+    features: [
+      {
+        title: "Pixel Streaming UE5 - 1 канал = 1 переговорная",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Бронирование конференции",
+        description: "Описание",
+        icon: Building2,
+      },
+      {
+        title: "Увеличение количества сессий, если поток возрос",
+        description: "Описание",
+        icon: Building2,
+      },
+    ],
   },
 ];

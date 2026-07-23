@@ -10,7 +10,8 @@ export default function SystemPreview({
   eyebrow = "О системе",
   title,
   description,
-  buttonLabel = "Смотреть демо",
+  audience,
+  buttonLabel = "Запустить демо",
   previewImage,
   previewVideoUrl,
   modalVideoUrl,
@@ -19,6 +20,7 @@ export default function SystemPreview({
   eyebrow?: string;
   title: string;
   description: string;
+  audience?: string[];
   buttonLabel?: string;
   previewImage?: string;
   previewVideoUrl?: string;
@@ -28,7 +30,7 @@ export default function SystemPreview({
   const videoForModal = modalVideoUrl ?? previewVideoUrl;
 
   return (
-    <section id={id} className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
+    <section id={id} className="relative pt-28 min-[640px]:pt-36 min-[1536px]:pt-44 min-[1920px]:pt-52">
       <Container>
         <div className="grid grid-cols-1 gap-10 min-[1024px]:grid-cols-2 min-[1024px]:items-center min-[1536px]:gap-16">
           <Reveal className="relative">
@@ -75,6 +77,21 @@ export default function SystemPreview({
             <p className="max-w-[520px] text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:max-w-[600px] min-[1536px]:text-[18px]">
               {description}
             </p>
+            {audience && audience.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <span className="text-[13px] font-medium text-ink-faint min-[1536px]:text-[14px]">Кому:</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  {audience.map((a) => (
+                    <span
+                      key={a}
+                      className="rounded-full glass px-3.5 py-1.5 text-[12.5px] font-medium text-ink-dim min-[1536px]:text-[13.5px]"
+                    >
+                      {a}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             <Button
               variant="primary"
               icon={<PlayCircle className="h-4 w-4" />}
