@@ -2,6 +2,10 @@ import type { LucideIcon } from "lucide-react";
 import { Building2, Sofa, Square, DoorOpen, Trees, Search, Calculator, TabletSmartphone, Blocks, Sun } from "lucide-react";
 import { DEMO_VIDEO_URL } from "../lib/rutube";
 
+// UE5 pixel-streaming отдаётся по http с 5.129.249.206:7701 — проксируется через
+// https://dev.inego.net/stream/, чтобы избежать Mixed Content на проде.
+const STREAM_URL = "https://dev.inego.net/stream/";
+
 export type FeatureCard = {
   title: string;
   description: string;
@@ -47,7 +51,7 @@ export const systemModules: SystemModule[] = [
     audience: ["Отдел продаж", "Горячие лиды", "Агенты"],
     previewVideoUrl: DEMO_VIDEO_URL,
     // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
-    streamUrl: "http://5.129.249.206:7701/",
+    streamUrl: STREAM_URL,
     featuresHeading: "Что входит в проект?",
     features: [
       {
@@ -121,7 +125,7 @@ export const systemModules: SystemModule[] = [
     audience: ["Отдел продаж", "Холодные лиды", "Горячие лиды", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
-    streamUrl: "http://5.129.249.206:7701/",
+    streamUrl: STREAM_URL,
     featuresHeading: "Что входит в проект?",
     features: [
       {
@@ -243,7 +247,7 @@ export const systemModules: SystemModule[] = [
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
     // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
-    streamUrl: "http://5.129.249.206:7701/",
+    streamUrl: STREAM_URL,
     featuresHeading: "Что входит в проект?",
     features: [
       {
