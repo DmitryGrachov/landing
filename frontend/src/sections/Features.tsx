@@ -108,11 +108,11 @@ export default function Features({
                 key={f.title}
                 delay={i * 0.05}
                 className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:w-auto min-[820px]:snap-start"
-                style={isMobile ? { width: activeIndex === i ? "86%" : "68%" } : undefined}
+                style={isMobile ? { width: activeIndex === i ? "101%" : "68%" } : undefined}
               >
                 <div
                   data-card
-                  className={`panel group flex w-full origin-top flex-col overflow-hidden rounded-2xl transition-[opacity,background-color,transform] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[820px]:hover:scale-[1.14] min-[1536px]:w-[300px] ${
+                  className={`panel group flex w-full origin-top flex-col overflow-hidden rounded-2xl transition-[opacity,background-color,transform] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[820px]:hover:scale-[1.14] min-[1536px]:w-[400px] ${
                     isMobile && activeIndex !== i ? "opacity-60" : "opacity-100"
                   }`}
                 >
