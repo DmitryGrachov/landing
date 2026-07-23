@@ -97,6 +97,95 @@ export default function Features({
     el.scrollBy({ left: dir * step, behavior: "smooth" });
   };
 
+  const activeIndexRef = useRef(activeIndex);
+  activeIndexRef.current = activeIndex;
+
+  const dragRef = useRef<{
+    startX: number;
+    startY: number;
+    startScroll: number;
+    lower: number;
+    upper: number;
+    mode: "horizontal" | "vertical" | null;
+  } | null>(null);
+
+  const getSnapScrollLeftFor = (index: number) => {
+    const el = trackRef.current;
+    const cards = el?.querySelectorAll<HTMLElement>("[data-card]");
+    const card = cards?.[index];
+    if (!el || !card) return el?.scrollLeft ?? 0;
+    const trackRect = el.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const containerCenter = trackRect.left + trackRect.width / 2;
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    return el.scrollLeft + (cardCenter - containerCenter);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (!isMobile) return;
+      const touch = e.touches[0];
+      const idx = activeIndexRef.current;
+      const lower = idx > 0 ? getSnapScrollLeftFor(idx - 1) : el.scrollLeft;
+      const upper = idx < features.length - 1 ? getSnapScrollLeftFor(idx + 1) : el.scrollLeft;
+      dragRef.current = {
+        startX: touch.clientX,
+        startY: touch.clientY,
+        startScroll: el.scrollLeft,
+        lower: Math.min(lower, upper),
+        upper: Math.max(lower, upper),
+        mode: null,
+      };
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const state = dragRef.current;
+      if (!state || !isMobile) return;
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - state.startX;
+      const deltaY = touch.clientY - state.startY;
+
+      if (state.mode === null) {
+        if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
+        state.mode = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
+      }
+
+      if (state.mode === "vertical") return;
+
+      el.style.scrollBehavior = "auto";
+      el.scrollLeft = Math.min(state.upper, Math.max(state.lower, state.startScroll - deltaX));
+      e.preventDefault();
+    };
+
+    const onTouchEnd = () => {
+      const state = dragRef.current;
+      dragRef.current = null;
+      el.style.scrollBehavior = "";
+      if (!state || !isMobile || state.mode !== "horizontal") return;
+      const current = el.scrollLeft;
+      const midLow = (state.lower + state.startScroll) / 2;
+      const midHigh = (state.startScroll + state.upper) / 2;
+      let target = state.startScroll;
+      if (current <= midLow) target = state.lower;
+      else if (current >= midHigh) target = state.upper;
+      el.scrollTo({ left: target, behavior: "smooth" });
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+    el.addEventListener("touchcancel", onTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, [isMobile, features.length]);
+
   return (
     <section className="relative pb-28 pt-10 min-[640px]:pb-36 min-[640px]:pt-14 min-[1536px]:pb-44 min-[1536px]:pt-16 min-[1920px]:pb-52 min-[1920px]:pt-20">
       <Container>
@@ -116,18 +205,18 @@ export default function Features({
 
           <motion.div
             ref={trackRef}
-            style={{ overflowAnchor: "none" }}
+            style={{ overflowAnchor: "none", touchAction: isMobile ? "pan-y" : "pan-x pan-y" }}
             variants={trackVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="scrollbar-none flex touch-pan-x touch-pan-y snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
+            className="scrollbar-none flex snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
               <motion.div
                 key={f.title}
                 variants={cardVariants}
-                className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:snap-start"
+                className="shrink-0 snap-center [scroll-snap-stop:always] transition-[width] duration-300 ease-out min-[820px]:snap-start"
                 style={
                   isMobile
                     ? { width: activeIndex === i ? "101%" : "68%" }
