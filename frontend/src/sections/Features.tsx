@@ -172,7 +172,7 @@ export default function Features({
           )}
         </div>
 
-        <div className="mt-10 flex justify-center min-[1536px]:mt-14">
+        <div className="mt-10 hidden justify-center min-[820px]:flex min-[1536px]:mt-14">
           <PulseCtaButton
             buttonLabel={buttonLabel}
             showDemoButton={showDemoButton}

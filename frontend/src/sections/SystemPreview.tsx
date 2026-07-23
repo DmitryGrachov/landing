@@ -109,13 +109,18 @@ export default function SystemPreview({
                   variant="primary"
                   icon={<PlayCircle className="h-4 w-4" />}
                   onClick={openDemo}
+                  className="animate-pulse-scale min-[820px]:animate-none"
                 >
                   {buttonLabel}
                 </Button>
               )}
               {downloadLabel && (
                 <a href={downloadHref ?? "#"} download>
-                  <Button variant={showDemoButton ? "secondary" : "primary"} icon={<Download className="h-4 w-4" />}>
+                  <Button
+                    variant={showDemoButton ? "secondary" : "primary"}
+                    icon={<Download className="h-4 w-4" />}
+                    className={showDemoButton ? "" : "animate-pulse-scale min-[820px]:animate-none"}
+                  >
                     {downloadLabel}
                   </Button>
                 </a>
