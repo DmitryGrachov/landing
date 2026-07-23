@@ -3,7 +3,6 @@ import {
   Image,
   Clapperboard,
   Globe,
-  Map,
   LayoutGrid,
   Gamepad2,
   QrCode,

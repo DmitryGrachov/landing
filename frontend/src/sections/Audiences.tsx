@@ -1,4 +1,4 @@
-import { Building2, Users, Megaphone, Briefcase, Landmark } from "lucide-react";
+import { Building2, Users, Megaphone, Briefcase } from "lucide-react";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calculator, MessageSquare } from "lucide-react";
+import { Calculator, MessageSquare } from "lucide-react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
