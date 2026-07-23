@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   Boxes,
   Image,
@@ -12,6 +13,16 @@ import {
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
+
+const trackVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.05 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
+};
 
 const modules = [
   { icon: Image, label: "Визуализация" },
@@ -56,11 +67,15 @@ export default function Pipeline() {
           </Reveal>
 
           <div className="relative">
-            <div
+            <motion.div
+              variants={trackVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
               className="scrollbar-none -mx-6 flex snap-x gap-3 overflow-x-auto px-6 pb-4 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-4 min-[640px]:gap-4 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[1536px]:gap-6"
             >
               {modules.map((m, i) => (
-                <Reveal key={m.label} delay={i * 0.05} className="shrink-0 snap-start">
+                <motion.div key={m.label} variants={itemVariants} className="shrink-0 snap-start">
                   <div className="panel group relative flex h-full w-[168px] flex-col gap-3 rounded-2xl p-5 transition-colors hover:bg-white/[0.07] min-[640px]:w-auto min-[1536px]:gap-4 min-[1536px]:p-7">
                     <div className="flex items-center justify-between">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo/25 to-cyan/15 text-white min-[1536px]:h-12 min-[1536px]:w-12">
@@ -70,9 +85,9 @@ export default function Pipeline() {
                     </div>
                     <div className="text-[14px] font-medium leading-snug text-white min-[1536px]:text-[16px]">{m.label}</div>
                   </div>
-                </Reveal>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
 

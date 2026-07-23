@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
@@ -7,6 +8,16 @@ import type { FeatureCard } from "../content/systemModules";
 
 const VIDEO_EXTENSIONS = [".webm", ".mp4", ".mov", ".ogg"];
 const isVideoMedia = (url: string) => VIDEO_EXTENSIONS.some((ext) => url.toLowerCase().endsWith(ext));
+
+const trackVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.05 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
+};
 
 export default function Features({
   heading,
@@ -103,15 +114,19 @@ export default function Features({
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-14 bg-gradient-to-l from-canvas via-canvas/70 to-transparent min-[820px]:block min-[1536px]:w-20" />
           )}
 
-          <div
+          <motion.div
             ref={trackRef}
             style={{ overflowAnchor: "none" }}
+            variants={trackVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
             className="scrollbar-none flex touch-pan-x touch-pan-y snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
-              <Reveal
+              <motion.div
                 key={f.title}
-                delay={i * 0.05}
+                variants={cardVariants}
                 className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:snap-start"
                 style={
                   isMobile
@@ -157,9 +172,9 @@ export default function Features({
                     )}
                   </div>
                 </div>
-              </Reveal>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {canScrollLeft && (
             <button
