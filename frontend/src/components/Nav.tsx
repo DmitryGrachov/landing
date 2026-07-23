@@ -131,32 +131,36 @@ export default function Nav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="flex h-[70vh] w-full flex-col overflow-y-auto rounded-b-[28px] border-b border-white/[0.12] bg-gradient-to-b from-[#14161f] to-[#0a0c13] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] min-[1280px]:hidden"
+              className="flex max-h-[calc(100dvh-80px)] w-full flex-col overflow-y-auto rounded-b-[28px] border-b border-white/[0.12] bg-gradient-to-b from-[#14161f] to-[#0a0c13] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] min-[1280px]:hidden"
             >
-              <nav className="flex flex-col gap-1 px-6 pt-4">
+              <nav className="flex flex-col gap-0 px-6 pt-[clamp(4px,1.6dvh,16px)]">
                 {links.map((l) => (
                   <a
                     key={l.href}
                     href={l.href}
                     onClick={closeMenu}
-                    className="rounded-xl px-2 py-4 text-[24px] font-semibold text-ink-dim transition-colors hover:text-white"
+                    className="rounded-xl px-2 py-[clamp(4px,1.8dvh,16px)] text-[clamp(13px,2.8dvh,24px)] font-semibold leading-tight text-ink-dim transition-colors hover:text-white"
                   >
                     {l.label}
                   </a>
                 ))}
               </nav>
 
-              <div className="mt-auto flex flex-col gap-4 border-t border-white/10 px-6 pb-8 pt-6">
-                <div className="flex flex-col gap-3">
+              <div className="mt-auto flex flex-col gap-[clamp(4px,1.6dvh,16px)] border-t border-white/10 px-6 pb-[clamp(8px,2.2dvh,32px)] pt-[clamp(4px,1.6dvh,24px)]">
+                <div className="flex flex-col gap-[clamp(4px,1.2dvh,12px)]">
                   <a href="#roi" onClick={closeMenu}>
-                    <Button variant="secondary" size="lg" className="w-full py-4 text-[16px]">
+                    <Button
+                      variant="secondary"
+                      size="lg"
+                      className="w-full py-[clamp(4px,1.5dvh,16px)] text-[clamp(12px,2.2dvh,16px)]"
+                    >
                       Посчитать эффект
                     </Button>
                   </a>
                   <Button
                     variant="primary"
                     size="lg"
-                    className="w-full py-4 text-[16px]"
+                    className="w-full py-[clamp(4px,1.5dvh,16px)] text-[clamp(12px,2.2dvh,16px)]"
                     onClick={() => {
                       closeMenu();
                       openContactModal("Запросить демо");
@@ -168,7 +172,7 @@ export default function Nav() {
 
                 <a
                   href={`tel:${CONTACT_PHONE.replace(/[^\d+]/g, "")}`}
-                  className="flex items-center justify-center gap-2 text-[20px] font-semibold text-white"
+                  className="flex items-center justify-center gap-2 text-[clamp(12px,2.2dvh,20px)] font-semibold text-white"
                 >
                   <Phone className="h-5 w-5 text-ink-faint" />
                   {CONTACT_PHONE}
