@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, TrendingUp, PiggyBank, Sparkles } from "lucide-react";
+import { Clock, TrendingUp, PiggyBank, Sparkles, Boxes, Globe, Layers } from "lucide-react";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
@@ -10,6 +10,36 @@ const fmtMoney = (n: number) =>
 
 const fmtCompact = (n: number) =>
   new Intl.NumberFormat("ru-RU", { notation: "compact", maximumFractionDigits: 1 }).format(n);
+
+const fmtMillionsFrom = (n: number) => {
+  const millions = Math.round((n / 1_000_000) * 10) / 10;
+  const str = Number.isInteger(millions) ? millions.toString() : millions.toFixed(1).replace(".", ",");
+  return `От ${str} млн ₽`;
+};
+
+const UNITS_MIN = 20;
+
+type Package = {
+  name: string;
+  subtitle?: string;
+  icon: typeof Boxes;
+  baseCost: number;
+  costStepPer10: number;
+  release: string;
+};
+
+const packages: Package[] = [
+  { name: "Интерактивный макет UE5", icon: Boxes, baseCost: 5_000_000, costStepPer10: 50_000, release: "От 4 мес" },
+  { name: "Интерактивный макет WEB", icon: Globe, baseCost: 1_500_000, costStepPer10: 10_000, release: "От 1 мес" },
+  {
+    name: "Комплекс WEB + UE5",
+    subtitle: "Экосистема и скоринг",
+    icon: Layers,
+    baseCost: 6_500_000,
+    costStepPer10: 30_000,
+    release: "От 4 мес",
+  },
+];
 
 type SliderProps = {
   label: string;
@@ -53,10 +83,10 @@ const outputs = [
 
 export default function RoiCalculator() {
   const [units, setUnits] = useState(200);
-  const [price, setPrice] = useState(13500000);
+  const [price, setPrice] = useState(16000000);
   const [financing, setFinancing] = useState(13.5);
-  const [period, setPeriod] = useState(23);
-  const [conversion, setConversion] = useState(7);
+  const [period, setPeriod] = useState(24);
+  const [conversion, setConversion] = useState(20);
 
   const results = useMemo(() => {
     const inventoryValue = units * price;
@@ -67,6 +97,11 @@ export default function RoiCalculator() {
     const totalImpact = additionalRevenue + financingSaved;
     return { inventoryValue, monthsSaved, additionalRevenue, financingSaved, totalImpact };
   }, [units, price, financing, conversion, period]);
+
+  const packageCosts = useMemo(
+    () => packages.map((pkg) => pkg.baseCost + ((units - UNITS_MIN) / 10) * pkg.costStepPer10),
+    [units]
+  );
 
   return (
     <section id="roi" className="relative py-28 min-[640px]:py-36 min-[1536px]:py-44 min-[1920px]:py-52">
@@ -87,8 +122,8 @@ export default function RoiCalculator() {
               <Slider
                 label="Количество квартир"
                 value={units}
-                min={20}
-                max={600}
+                min={UNITS_MIN}
+                max={620}
                 step={10}
                 onChange={setUnits}
                 format={(v) => v.toString()}
@@ -186,6 +221,32 @@ export default function RoiCalculator() {
               </motion.div>
             </div>
           </Reveal>
+        </div>
+
+        <div className="mt-5 grid w-full grid-cols-1 gap-5 min-[768px]:grid-cols-3 min-[1536px]:mt-7 min-[1536px]:gap-7">
+          {packages.map((pkg, i) => (
+            <Reveal key={pkg.name} delay={0.05 * i} className="h-full">
+              <div className="glass flex h-full flex-col rounded-3xl p-7 min-[1536px]:p-9">
+                <pkg.icon className="h-5 w-5 text-cyan" />
+                <div className="mt-4 text-[16px] font-semibold text-white min-[1536px]:text-[18px]">{pkg.name}</div>
+                {pkg.subtitle && (
+                  <div className="mt-1 text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">{pkg.subtitle}</div>
+                )}
+                <div className="mt-5 flex flex-1 flex-col justify-end gap-3">
+                  <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
+                    <span className="text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">Стоимость</span>
+                    <span className="text-[15px] font-semibold text-white min-[1536px]:text-[16.5px]">
+                      {fmtMillionsFrom(packageCosts[i])}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
+                    <span className="text-[12.5px] text-ink-faint min-[1536px]:text-[13.5px]">Релиз</span>
+                    <span className="text-[15px] font-semibold text-white min-[1536px]:text-[16.5px]">{pkg.release}</span>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </section>
