@@ -29,12 +29,32 @@ export default function Features({
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 820);
 
   const updateScrollState = () => {
     const el = trackRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    setIsMobile(window.innerWidth < 820);
+
+    const cards = el.querySelectorAll<HTMLElement>("[data-card]");
+    if (!cards.length) return;
+    const trackRect = el.getBoundingClientRect();
+    const trackCenterX = trackRect.left + trackRect.width / 2;
+    let closestIndex = 0;
+    let closestDist = Infinity;
+    cards.forEach((card, idx) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenterX = cardRect.left + cardRect.width / 2;
+      const dist = Math.abs(cardCenterX - trackCenterX);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIndex = idx;
+      }
+    });
+    setActiveIndex(closestIndex);
   };
 
   useEffect(() => {
@@ -78,13 +98,20 @@ export default function Features({
           <div
             ref={trackRef}
             style={{ overflowAnchor: "none" }}
-            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 min-[1536px]:gap-6"
+            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.05} className="w-full shrink-0 snap-start min-[820px]:w-auto">
+              <Reveal
+                key={f.title}
+                delay={i * 0.05}
+                className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:w-auto min-[820px]:snap-start"
+                style={isMobile ? { width: activeIndex === i ? "86%" : "68%" } : undefined}
+              >
                 <div
                   data-card
-                  className="panel group flex w-full flex-col overflow-hidden rounded-2xl transition-colors hover:bg-white/[0.07] min-[820px]:w-[260px] min-[1536px]:w-[300px]"
+                  className={`panel group flex w-full flex-col overflow-hidden rounded-2xl transition-[opacity,background-color] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[1536px]:w-[300px] ${
+                    isMobile && activeIndex !== i ? "opacity-60" : "opacity-100"
+                  }`}
                 >
                   <div className="flex flex-col gap-3 p-5 pb-4 min-[1536px]:gap-3.5 min-[1536px]:p-6 min-[1536px]:pb-5">
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo/25 to-cyan/15 text-white min-[1536px]:h-10 min-[1536px]:w-10">
