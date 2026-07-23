@@ -2,9 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { Building2, Sofa, Square, DoorOpen, Trees, Search, Calculator, TabletSmartphone, Blocks, Sun } from "lucide-react";
 import { DEMO_VIDEO_URL } from "../lib/rutube";
 
-// UE5 pixel-streaming отдаётся по http с 5.129.249.206:7701 — проксируется через
-// https://dev.inego.net/stream/, чтобы избежать Mixed Content на проде.
-const STREAM_URL = "https://dev.inego.net/stream/";
+const STREAM_URL = "https://stream.inego.net:7741/";
 
 export type FeatureCard = {
   title: string;
