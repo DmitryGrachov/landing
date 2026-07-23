@@ -216,7 +216,7 @@ export default function RoiCalculator() {
                   {fmtMoney(results.totalImpact)}
                 </span>
                 <span className="mt-1 text-[12px] text-ink-faint min-[1536px]:text-[13.5px]">
-                  Оценка на основе типичных диапазонов по проектам Nexus. Иллюстративный расчёт, не гарантия.
+                  Оценка на основе типичных диапазонов по проектам INEGO.dev. Иллюстративный расчёт, не гарантия.
                 </span>
               </motion.div>
             </div>

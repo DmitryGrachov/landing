@@ -43,7 +43,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 text-[13px] text-ink-faint min-[640px]:flex-row min-[1536px]:pt-10 min-[1536px]:text-[14px]">
-          <span>© {new Date().getFullYear()} Nexus. Все права защищены.</span>
+          <span>© {new Date().getFullYear()} INEGO.dev. Все права защищены.</span>
           <div className="flex gap-6">
             <a href="#" className="hover:text-ink-dim">Конфиденциальность</a>
             <a href="#" className="hover:text-ink-dim">Условия</a>
