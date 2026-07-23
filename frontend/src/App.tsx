@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { ContactModalProvider } from "./components/ContactModal";
 import { VideoModalProvider } from "./components/VideoModal";
-import { DEMO_VIDEO_URL } from "./lib/rutube";
+import { systemModules } from "./content/systemModules";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
 import SystemPreview from "./sections/SystemPreview";
@@ -30,10 +30,23 @@ function App() {
           <Nav />
           <main>
             <Hero />
-            <SystemPreview rutubeUrl={DEMO_VIDEO_URL} />
-            <Features />
-            <Pipeline />
+            {systemModules.map((mod) => (
+              <Fragment key={mod.id}>
+                <SystemPreview
+                  id={mod.id}
+                  eyebrow={mod.eyebrow}
+                  title={mod.title}
+                  description={mod.description}
+                  buttonLabel={mod.buttonLabel}
+                  previewImage={mod.previewImage}
+                  previewVideoUrl={mod.previewVideoUrl}
+                  modalVideoUrl={mod.modalVideoUrl}
+                />
+                <Features heading={mod.featuresHeading} features={mod.features} />
+              </Fragment>
+            ))}
             <Comparison />
+            <Pipeline />
             <Audiences />
             <Impact />
             <RoiCalculator />

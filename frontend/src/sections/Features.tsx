@@ -1,49 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Building2, Sofa, DoorOpen, Trees, Sun, LayoutGrid } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
+import type { FeatureCard } from "../content/systemModules";
 
-type Feature = {
-  title: string;
-  description: string;
-  image?: string;
-  icon: typeof Building2;
-};
-
-const features: Feature[] = [
-  {
-    title: "Обзор ЖК",
-    description: "Обзор жилого комплекса и его окружения",
-    icon: Building2,
-  },
-  {
-    title: "Исследование интерьера",
-    description: "Прогулка по будущей квартире покупателя от 1-го лица",
-    icon: Sofa,
-  },
-  {
-    title: "Обзор зон благоустройства",
-    description: "Отображение мест общего пользования: зелёные зоны, детские и спортивные площадки",
-    icon: Trees,
-  },
-  {
-    title: "Реальный вид из окна",
-    description: "Демонстрация реального вида из окна будущей квартиры покупателя",
-    icon: DoorOpen,
-  },
-  {
-    title: "Смена времени суток",
-    description: "Переключение освещения дня и ночи для оценки атмосферы проекта",
-    icon: Sun,
-  },
-  {
-    title: "Расстановка мебели",
-    description: "Визуализация вариантов меблировки и планировочных решений",
-    icon: LayoutGrid,
-  },
-];
-
-export default function Features() {
+export default function Features({
+  heading,
+  features,
+}: {
+  heading: string;
+  features: FeatureCard[];
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -81,7 +48,7 @@ export default function Features() {
       <Container>
         <Reveal>
           <h2 className="text-[30px] font-semibold leading-[1.15] text-white min-[640px]:text-[38px] min-[1536px]:text-[46px]">
-            Что входит в проект?
+            {heading}
           </h2>
         </Reveal>
 
