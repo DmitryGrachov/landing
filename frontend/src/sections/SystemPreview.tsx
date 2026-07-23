@@ -2,8 +2,7 @@ import { Download, PlayCircle } from "lucide-react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
-import { useVideoModal } from "../components/VideoModal";
-import { useStreamModal } from "../components/StreamModal";
+import { useDemoAction } from "../hooks/useDemoAction";
 import { toRutubeEmbedUrl } from "../lib/rutube";
 
 export default function SystemPreview({
@@ -39,10 +38,7 @@ export default function SystemPreview({
   /** Если задано — кнопка демо открывает полноэкранный UE5-стрим в iframe вместо видео */
   streamUrl?: string;
 }) {
-  const { openVideoModal } = useVideoModal();
-  const { openStreamModal } = useStreamModal();
-  const videoForModal = modalVideoUrl ?? previewVideoUrl;
-  const openDemo = () => (streamUrl ? openStreamModal(streamUrl) : openVideoModal(videoForModal));
+  const openDemo = useDemoAction({ previewVideoUrl, modalVideoUrl, streamUrl });
 
   return (
     <section id={id} className="relative pt-28 min-[640px]:pt-36 min-[1536px]:pt-44 min-[1920px]:pt-52">

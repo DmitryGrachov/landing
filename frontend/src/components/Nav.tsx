@@ -50,6 +50,7 @@ export default function Nav() {
       >
         <Container className="pt-4 min-[1536px]:pt-6">
           <div
+            style={scrolled ? { backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)" } : undefined}
             className={`flex items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300 min-[1536px]:px-6 min-[1536px]:py-4 ${
               scrolled ? "glass-strong shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : "border border-transparent"
             }`}

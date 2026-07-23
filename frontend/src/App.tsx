@@ -49,7 +49,17 @@ function App() {
                     downloadHref={mod.downloadHref}
                     streamUrl={mod.streamUrl}
                   />
-                  <Features heading={mod.featuresHeading} features={mod.features} />
+                  <Features
+                    heading={mod.featuresHeading}
+                    features={mod.features}
+                    buttonLabel={mod.buttonLabel}
+                    showDemoButton={mod.showDemoButton}
+                    previewVideoUrl={mod.previewVideoUrl}
+                    modalVideoUrl={mod.modalVideoUrl}
+                    streamUrl={mod.streamUrl}
+                    downloadLabel={mod.downloadLabel}
+                    downloadHref={mod.downloadHref}
+                  />
                 </Fragment>
               ))}
               <Comparison />

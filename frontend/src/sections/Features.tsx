@@ -2,14 +2,29 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
+import PulseCtaButton from "../components/PulseCtaButton";
 import type { FeatureCard } from "../content/systemModules";
 
 export default function Features({
   heading,
   features,
+  buttonLabel,
+  showDemoButton,
+  previewVideoUrl,
+  modalVideoUrl,
+  streamUrl,
+  downloadLabel,
+  downloadHref,
 }: {
   heading: string;
   features: FeatureCard[];
+  buttonLabel?: string;
+  showDemoButton?: boolean;
+  previewVideoUrl?: string;
+  modalVideoUrl?: string;
+  streamUrl?: string;
+  downloadLabel?: string;
+  downloadHref?: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -114,6 +129,18 @@ export default function Features({
               <ChevronRight className="h-5 w-5" />
             </button>
           )}
+        </div>
+
+        <div className="mt-10 flex justify-center min-[1536px]:mt-14">
+          <PulseCtaButton
+            buttonLabel={buttonLabel}
+            showDemoButton={showDemoButton}
+            previewVideoUrl={previewVideoUrl}
+            modalVideoUrl={modalVideoUrl}
+            streamUrl={streamUrl}
+            downloadLabel={downloadLabel}
+            downloadHref={downloadHref}
+          />
         </div>
       </Container>
     </section>
