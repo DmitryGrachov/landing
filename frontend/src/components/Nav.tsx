@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Phone } from "lucide-react";
 import Container from "./Container";
 import Logo from "./Logo";
 import Button from "./Button";
 import { useContactModal } from "./ContactModal";
+
+const CONTACT_PHONE = "+7 (919) 076-43-06";
 
 const links = [
   { label: "Интерактивный макет UE5", href: "#1" },
@@ -48,11 +51,18 @@ export default function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <Container className="pt-4 min-[1536px]:pt-6">
+        <Container
+          className="pt-4 transition-[padding] duration-300 min-[1536px]:pt-6"
+          style={menuOpen ? { paddingLeft: 0, paddingRight: 0, paddingTop: 0 } : undefined}
+        >
           <div
-            style={scrolled ? { backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)" } : undefined}
-            className={`flex items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300 min-[1536px]:px-6 min-[1536px]:py-4 ${
-              scrolled ? "glass-strong shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : "border border-transparent"
+            style={!menuOpen && scrolled ? { backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)" } : undefined}
+            className={`flex items-center justify-between px-4 py-3 transition-all duration-300 min-[1536px]:px-6 min-[1536px]:py-4 ${
+              menuOpen
+                ? "rounded-none bg-gradient-to-b from-[#14161f] to-[#0a0c13]"
+                : scrolled
+                  ? "rounded-2xl glass-strong shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]"
+                  : "rounded-2xl border border-transparent"
             }`}
           >
             <a href="#top" className="shrink-0" onClick={closeMenu}>
@@ -117,44 +127,53 @@ export default function Nav() {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="min-[1280px]:hidden"
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="flex h-[70vh] w-full flex-col overflow-y-auto rounded-b-[28px] border-b border-white/[0.12] bg-gradient-to-b from-[#14161f] to-[#0a0c13] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] min-[1280px]:hidden"
             >
-              <Container className="pt-2">
-                <nav className="flex flex-col gap-1 rounded-2xl border border-white/[0.12] bg-gradient-to-b from-[#14161f] to-[#0a0c13] p-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)]">
-                  {links.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      onClick={closeMenu}
-                      className="rounded-xl px-4 py-3 text-[15px] font-medium text-ink-dim transition-colors hover:bg-white/[0.06] hover:text-white"
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                  <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
-                    <a href="#roi" onClick={closeMenu}>
-                      <Button variant="secondary" size="md" className="w-full">
-                        Посчитать эффект
-                      </Button>
-                    </a>
-                    <Button
-                      variant="primary"
-                      size="md"
-                      className="w-full"
-                      onClick={() => {
-                        closeMenu();
-                        openContactModal("Запросить демо");
-                      }}
-                    >
-                      Запросить демо
+              <nav className="flex flex-col gap-1 px-6 pt-4">
+                {links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={closeMenu}
+                    className="rounded-xl px-2 py-4 text-[24px] font-semibold text-ink-dim transition-colors hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="mt-auto flex flex-col gap-4 border-t border-white/10 px-6 pb-8 pt-6">
+                <div className="flex flex-col gap-3">
+                  <a href="#roi" onClick={closeMenu}>
+                    <Button variant="secondary" size="lg" className="w-full py-4 text-[16px]">
+                      Посчитать эффект
                     </Button>
-                  </div>
-                </nav>
-              </Container>
+                  </a>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full py-4 text-[16px]"
+                    onClick={() => {
+                      closeMenu();
+                      openContactModal("Запросить демо");
+                    }}
+                  >
+                    Запросить демо
+                  </Button>
+                </div>
+
+                <a
+                  href={`tel:${CONTACT_PHONE.replace(/[^\d+]/g, "")}`}
+                  className="flex items-center justify-center gap-2 text-[20px] font-semibold text-white"
+                >
+                  <Phone className="h-5 w-5 text-ink-faint" />
+                  {CONTACT_PHONE}
+                </a>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
