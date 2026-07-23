@@ -33,7 +33,11 @@ export default function Features({
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 820);
+  const [cardBaseWidth, setCardBaseWidth] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth >= 1536 ? 400 : 260
+  );
 
   const updateScrollState = () => {
     const el = trackRef.current;
@@ -41,6 +45,7 @@ export default function Features({
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
     setIsMobile(window.innerWidth < 820);
+    setCardBaseWidth(window.innerWidth >= 1536 ? 400 : 260);
 
     const cards = el.querySelectorAll<HTMLElement>("[data-card]");
     if (!cards.length) return;
@@ -101,18 +106,24 @@ export default function Features({
           <div
             ref={trackRef}
             style={{ overflowAnchor: "none" }}
-            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[820px]:pb-16 min-[820px]:pt-3 min-[1536px]:gap-6"
+            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
               <Reveal
                 key={f.title}
                 delay={i * 0.05}
-                className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:w-auto min-[820px]:snap-start"
-                style={isMobile ? { width: activeIndex === i ? "101%" : "68%" } : undefined}
+                className="shrink-0 snap-center transition-[width] duration-300 ease-out min-[820px]:snap-start"
+                style={
+                  isMobile
+                    ? { width: activeIndex === i ? "101%" : "68%" }
+                    : { width: `${hoveredIndex === i ? Math.round(cardBaseWidth * 1.14) : cardBaseWidth}px` }
+                }
               >
                 <div
                   data-card
-                  className={`panel group flex w-full origin-top flex-col overflow-hidden rounded-2xl transition-[opacity,background-color,transform] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[820px]:hover:scale-[1.14] min-[1536px]:w-[400px] ${
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className={`panel group relative flex w-full flex-col overflow-hidden rounded-2xl transition-[opacity,background-color] duration-300 ease-out hover:z-20 hover:bg-white/[0.07] min-[820px]:opacity-100 ${
                     isMobile && activeIndex !== i ? "opacity-60" : "opacity-100"
                   }`}
                 >
