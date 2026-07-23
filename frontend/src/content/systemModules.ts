@@ -5,7 +5,8 @@ import { DEMO_VIDEO_URL } from "../lib/rutube";
 export type FeatureCard = {
   title: string;
   description: string;
-  image?: string;
+  /** Картинка (jpg/png/webp) или видео (webm/mp4) для превью карточки — тип определяется по расширению файла */
+  media?: string;
   icon: LucideIcon;
 };
 
@@ -53,51 +54,61 @@ export const systemModules: SystemModule[] = [
         title: "Обзор жилого комплекса",
         description: "Описание",
         icon: Building2,
+        media: "/video/UE/Webm/review.webm",
       },
       {
         title: "Прогулка по Благоустройству",
         description: "Описание",
         icon: Trees,
+        media: "/video/UE/Webm/proguilki.webm",
       },
       {
         title: "Тур по Интерьерам квартир",
         description: "Описание",
         icon: Sofa,
+        media: "/video/UE/Webm/Inter.webm",
       },
       {
         title: "Реальный вид из окна",
         description: "Описание",
         icon: DoorOpen,
+        media: "/video/UE/Webm/windows.webm",
       },
       {
         title: "3D Планы этажей",
         description: "Описание",
         icon: Square,
+        media: "/video/UE/Webm/florrs.webm",
       },
       {
         title: "Движение солнца и теней ",
         description: "Описание",
         icon: Sun,
+        media: "/video/UE/Webm/svet.webm",
       },
       {
         title: "Поиск недвижимости",
         description: "Описание",
         icon: Search,
+        media: "/video/UE/Webm/poisk.webm",
       },
       {
         title: "Кредитный калькулятор",
         description: "Описание",
         icon: Calculator,
+        media: "/video/UE/Webm/ipoteka.webm",
       },
       {
         title: "Интеграция с CRM",
         description: "Описание",
         icon: Blocks,
+        media: "/video/UE/Webm/srm.webm",
       },
       {
         title: "Доступность на ПК и WEB",
         description: "Описание",
         icon: TabletSmartphone,
+        media: "/video/UE/Webm/inegraz-converted.webm",
       },
     ],
   },
@@ -114,49 +125,57 @@ export const systemModules: SystemModule[] = [
     featuresHeading: "Что входит в проект?",
     features: [
       {
+        title: "Доступность на Смартфонах, Планшетах и ПК",
+        description: "Описание",
+        icon: TabletSmartphone,
+        media: "/video/mobile/Webm/integrazion.webm",
+      },
+      {
         title: "Обзор жилого комплекса",
         description: "Описание",
         icon: Building2,
-      },
-      {
-        title: "Прогулка по Благоустройству",
-        description: "Описание",
-        icon: Trees,
-      },
-      {
-        title: "Тур по Интерьерам квартир",
-        description: "Описание",
-        icon: Sofa,
-      },
-      {
-        title: "Реальный вид из окна",
-        description: "Описание",
-        icon: DoorOpen,
-      },
-      {
-        title: "Планы этажей",
-        description: "Описание",
-        icon: Square,
+        media: "/video/mobile/Webm/view.webm",
       },
       {
         title: "Поиск недвижимости",
         description: "Описаниея",
         icon: Search,
+        media: "/video/mobile/Webm/poiskhat.webm",
       },
       {
-        title: "Кредитный калькулятор",
+        title: "Планы этажей",
         description: "Описание",
-        icon: Calculator,
+        icon: Square,
+        media: "/video/mobile/Webm/mobile.webm",
+      },
+      {
+        title: "Реальный вид из окна",
+        description: "Описание",
+        icon: DoorOpen,
+        media: "/video/mobile/Webm/vidizokna.webm",
+      },
+      {
+        title: "Прогулка по Благоустройству",
+        description: "Описание",
+        icon: Trees,
+        media: "/video/mobile/Webm/progilki.webm",
       },
       {
         title: "Интеграция с CRM",
         description: "Описание",
         icon: Blocks,
+        media: "/video/mobile/Webm/crmmovile.webm",
       },
       {
-        title: "Доступность на Смартфонах, Планшетах и ПК",
+        title: "Кредитный калькулятор",
         description: "Описание",
-        icon: TabletSmartphone,
+        icon: Calculator,
+        media: "/video/UE/Webm/ipoteka.webm",
+      },
+      {
+        title: "Тур по Интерьерам квартир",
+        description: "Описание",
+        icon: Sofa,
       },
     ],
   },
@@ -179,11 +198,13 @@ export const systemModules: SystemModule[] = [
         title: "Личный кабинет покупателя",
         description: "Описание",
         icon: Building2,
+        media: "/video/eco/LK.webm",
       },
       {
         title: "Сохранение избранного",
         description: "Описание",
         icon: Building2,
+        media: "/video/eco/isbranoe.webm",
       },
       {
         title: "Аналитика сессий",

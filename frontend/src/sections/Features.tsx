@@ -5,6 +5,9 @@ import Reveal from "../components/Reveal";
 import PulseCtaButton from "../components/PulseCtaButton";
 import type { FeatureCard } from "../content/systemModules";
 
+const VIDEO_EXTENSIONS = [".webm", ".mp4", ".mov", ".ogg"];
+const isVideoMedia = (url: string) => VIDEO_EXTENSIONS.some((ext) => url.toLowerCase().endsWith(ext));
+
 export default function Features({
   heading,
   features,
@@ -98,7 +101,7 @@ export default function Features({
           <div
             ref={trackRef}
             style={{ overflowAnchor: "none" }}
-            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[1536px]:gap-6"
+            className="scrollbar-none flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[11%] pb-2 min-[820px]:px-0 min-[820px]:pb-16 min-[820px]:pt-3 min-[1536px]:gap-6"
           >
             {features.map((f, i) => (
               <Reveal
@@ -109,7 +112,7 @@ export default function Features({
               >
                 <div
                   data-card
-                  className={`panel group flex w-full flex-col overflow-hidden rounded-2xl transition-[opacity,background-color] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[1536px]:w-[300px] ${
+                  className={`panel group flex w-full origin-top flex-col overflow-hidden rounded-2xl transition-[opacity,background-color,transform] duration-300 ease-out hover:bg-white/[0.07] min-[820px]:w-[260px] min-[820px]:opacity-100 min-[820px]:hover:scale-[1.14] min-[1536px]:w-[300px] ${
                     isMobile && activeIndex !== i ? "opacity-60" : "opacity-100"
                   }`}
                 >
@@ -125,8 +128,19 @@ export default function Features({
                     </p>
                   </div>
                   <div className="relative mx-3 mb-3 aspect-[4/3] overflow-hidden rounded-xl bg-surface min-[1536px]:mx-4 min-[1536px]:mb-4">
-                    {f.image ? (
-                      <img src={f.image} alt={f.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    {f.media ? (
+                      isVideoMedia(f.media) ? (
+                        <video
+                          src={f.media}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <img src={f.media} alt={f.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      )
                     ) : (
                       <div className="pointer-events-none absolute inset-0 grid-fade opacity-50" />
                     )}
