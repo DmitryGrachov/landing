@@ -8,7 +8,7 @@ export default function Hero() {
   const { openContactModal } = useContactModal();
 
   return (
-    <section id="top" className="relative overflow-hidden pt-40 pb-20 min-[640px]:pt-48 min-[640px]:pb-28 min-[1536px]:pt-56 min-[1536px]:pb-36 min-[1920px]:pt-64 min-[1920px]:pb-44">
+    <section id="hero" className="relative overflow-hidden pt-40 pb-20 min-[640px]:pt-48 min-[640px]:pb-28 min-[1536px]:pt-56 min-[1536px]:pb-36 min-[1920px]:pt-64 min-[1920px]:pb-44">
       <div className="pointer-events-none absolute inset-0 grid-fade" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo/25 via-violet/20 to-transparent blur-3xl min-[1920px]:h-[720px] min-[1920px]:w-[1160px]" />
 

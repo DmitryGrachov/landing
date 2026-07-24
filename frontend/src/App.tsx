@@ -4,6 +4,7 @@ import { VideoModalProvider } from "./components/VideoModal";
 import { StreamModalProvider } from "./components/StreamModal";
 import { systemModules } from "./content/systemModules";
 import Nav from "./components/Nav";
+import VideoHero from "./sections/VideoHero";
 import Hero from "./sections/Hero";
 import SystemPreview from "./sections/SystemPreview";
 import Features from "./sections/Features";
@@ -31,6 +32,7 @@ function App() {
           <div className="relative min-h-screen bg-canvas">
             <Nav />
             <main>
+              <VideoHero />
               <Hero />
               {systemModules.map((mod) => (
                 <Fragment key={mod.id}>

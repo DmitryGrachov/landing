@@ -47,9 +47,10 @@ export default function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <motion.div
-        initial={{ y: -24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ y: -16, opacity: 0 }}
+        animate={scrolled ? { y: 0, opacity: 1 } : { y: -16, opacity: 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: scrolled ? "auto" : "none" }}
       >
         <Container
           className="pt-4 transition-[padding] duration-300 min-[1536px]:pt-6"
