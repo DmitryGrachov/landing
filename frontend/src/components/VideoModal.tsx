@@ -67,7 +67,7 @@ export function VideoModalProvider({ children }: { children: ReactNode }) {
                 type="button"
                 aria-label="Закрыть"
                 onClick={close}
-                className="glass-strong absolute -top-[52px] left-1/2 z-10 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] transition-all hover:scale-105 hover:bg-white/[0.14] min-[640px]:-top-16 min-[640px]:h-12 min-[640px]:w-12"
+                className="absolute left-1/2 top-0 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] transition-all hover:scale-105 hover:bg-black/80 min-[640px]:h-12 min-[640px]:w-12"
               >
                 <X className="h-5 w-5" />
               </button>

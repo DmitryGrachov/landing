@@ -62,6 +62,15 @@ export function StreamModalProvider({ children }: { children: ReactNode }) {
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="relative h-[94vh] w-full max-w-[1800px]"
             >
+              <button
+                type="button"
+                aria-label="Закрыть"
+                onClick={close}
+                className="absolute left-1/2 top-0 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] transition-all hover:scale-105 hover:bg-black/80 min-[640px]:h-12 min-[640px]:w-12"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
               <div className="relative h-full w-full overflow-hidden rounded-2xl glass-strong min-[640px]:rounded-[28px]">
                 {isOpen && url && (
                   <iframe
@@ -73,15 +82,6 @@ export function StreamModalProvider({ children }: { children: ReactNode }) {
                     frameBorder={0}
                   />
                 )}
-
-                <button
-                  type="button"
-                  aria-label="Закрыть"
-                  onClick={close}
-                  className="glass-strong absolute right-3 top-3 z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] transition-all hover:scale-105 hover:bg-white/[0.14] min-[640px]:right-4 min-[640px]:top-4 min-[640px]:h-12 min-[640px]:w-12"
-                >
-                  <X className="h-5 w-5" />
-                </button>
               </div>
             </motion.div>
           </motion.div>
