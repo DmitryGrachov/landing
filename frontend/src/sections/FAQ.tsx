@@ -4,14 +4,35 @@ import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 
-const faqs = [
+/**
+ * Ответ FAQ: либо просто текст, либо текст + список пунктов под ним
+ * (например, для перечисления параллельных этапов со сроками).
+ */
+type FaqAnswer =
+  | string
+  | {
+    text: string;
+    listLabel?: string;
+    items: string[];
+  };
+
+const faqs: { q: string; a: FaqAnswer }[] = [
   {
     q: "Что такое цифровая экосистема продаж?",
     a: "Цифровая экосистема продаж — это единая программная платформа для девелоперов, объединяющая WEB макет, UE5 макет, сайт проекта, каталог квартир, CRM, аналитику, презентационные экраны и инструменты управления контентом. Все данные синхронизированы и доступны из единого источника.",
   },
   {
     q: "Как быстро создаются и внедряются модули?",
-    a: "Каждый день отложенного старта продаж стоит дорого, поэтому наш подход позволили максимально ускорить все процессы. Все модули создаются на базе Единой цифровой модели. Не важно на каком из произошло ее создание, далее все разработки ведутся параллельно. Например:Визуализация и генплан за 30 дней, дополнительный результат - Цифровая сцена «клон»",
+    a: {
+      text: "Каждый день отложенного старта продаж стоит дорого, поэтому наш подход позволяет максимально ускорить все процессы. Все модули создаются на базе Единой цифровой модели. Неважно, на каком из них произошло её создание — далее все разработки ведутся параллельно. Например: визуализация и генплан — 30 дней, дополнительный результат — цифровая сцена «клон».",
+      listLabel: "Далее параллельно:",
+      items: [
+        "WEB макет — 30 дней",
+        "UE5 макет — 60/90/120/150 дней",
+        "Видеопродакшн — 30/60 дней",
+        "Экосистема — 30/60 дней",
+      ],
+    },
   },
   {
     q: "Какие задачи решает платформа?",
@@ -107,7 +128,7 @@ const faqs = [
   }
 ];
 
-function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultOpen?: boolean }) {
+function FAQItem({ q, a, defaultOpen = false }: { q: string; a: FaqAnswer; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="panel rounded-2xl">
@@ -125,7 +146,29 @@ function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-[14px] leading-relaxed text-ink-faint min-[1536px]:px-8 min-[1536px]:pb-6 min-[1536px]:text-[16px]">{a}</p>
+          <div className="flex flex-col gap-3 px-6 pb-5 min-[1536px]:px-8 min-[1536px]:pb-6">
+            <p className="text-[14px] leading-relaxed text-ink-faint min-[1536px]:text-[16px]">
+              {typeof a === "string" ? a : a.text}
+            </p>
+            {typeof a !== "string" && (
+              <div className="flex flex-col gap-2">
+                {a.listLabel && (
+                  <span className="text-[13px] font-medium text-ink-dim min-[1536px]:text-[14px]">{a.listLabel}</span>
+                )}
+                <ul className="flex flex-col gap-1.5">
+                  {a.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-[14px] leading-relaxed text-ink-faint min-[1536px]:text-[16px]"
+                    >
+                      <span className="mt-[8px] h-1.5 w-1.5 flex-none rounded-full bg-cyan min-[1536px]:mt-[9px]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
