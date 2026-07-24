@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import Reveal from "../components/Reveal";
 import { useDemoAction } from "../hooks/useDemoAction";
 import { toRutubeEmbedUrl } from "../lib/rutube";
+import type { ModuleDescription } from "../content/systemModules";
 
 export default function SystemPreview({
   id = "demo",
@@ -23,7 +24,7 @@ export default function SystemPreview({
   id?: string;
   eyebrow?: string;
   title: string;
-  description: string;
+  description: ModuleDescription;
   audience?: string[];
   buttonLabel?: string;
   /** Показывать ли основную кнопку демо (например, скрыть, если для модуля есть только downloadLabel) */
@@ -85,9 +86,30 @@ export default function SystemPreview({
             <h2 className="text-[30px] font-semibold leading-[1.15] text-white min-[640px]:text-[38px] min-[1536px]:text-[46px]">
               {title}
             </h2>
-            <p className="max-w-[520px] text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:max-w-[600px] min-[1536px]:text-[18px]">
-              {description}
-            </p>
+            {typeof description === "string" ? (
+              <p className="max-w-[520px] text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:max-w-[600px] min-[1536px]:text-[18px]">
+                {description}
+              </p>
+            ) : (
+              <div className="flex max-w-[520px] flex-col gap-3 min-[1536px]:max-w-[600px]">
+                <ul className="flex flex-col gap-2.5">
+                  {description.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:text-[18px]"
+                    >
+                      <span className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-cyan min-[1536px]:mt-[11px]" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                {description.text && (
+                  <p className="text-[15.5px] leading-relaxed text-ink-dim min-[1536px]:text-[18px]">
+                    {description.text}
+                  </p>
+                )}
+              </div>
+            )}
             {audience && audience.length > 0 && (
               <div className="flex flex-col gap-2">
                 <span className="text-[13px] font-medium text-ink-faint min-[1536px]:text-[14px]">Кому:</span>

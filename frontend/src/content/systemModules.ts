@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Building2, Sofa, Square, DoorOpen, Trees, Search, Calculator, TabletSmartphone, Blocks, Sun } from "lucide-react";
+import { Building2, Sofa, Square, DoorOpen, Trees, Search, Calculator, TabletSmartphone, Blocks, Sun, Rows3, Film, Fence, FileBox } from "lucide-react";
 import { DEMO_VIDEO_URL } from "../lib/rutube";
 
 const STREAM_URL = "https://stream.inego.net:7741/";
@@ -12,12 +12,23 @@ export type FeatureCard = {
   icon: LucideIcon;
 };
 
+/**
+ * Описание модуля: либо просто текст, либо список пунктов
+ * (с необязательным текстом под ним, например для доп. пояснения).
+ */
+export type ModuleDescription =
+  | string
+  | {
+    bullets: string[];
+    text?: string;
+  };
+
 export type SystemModule = {
   /** Уникальный id секции (используется как #anchor и React key) */
   id: string;
   eyebrow: string;
   title: string;
-  description: string;
+  description: ModuleDescription;
   /** Короткие теги "кому подходит модуль", показываются над кнопкой */
   audience?: string[];
   buttonLabel?: string;
@@ -44,8 +55,12 @@ export const systemModules: SystemModule[] = [
     id: "1",
     eyebrow: "О системе",
     title: "Интерактивный макет UE5",
-    description:
-      "TODO: описание блока 2",
+    description: {
+      bullets: [
+        "Размещение макета на интерактивной панели в офисе продаж одного комплекса или нескольких ЖК на карте города с сквозной фильтрацией",
+        "Удаленная демонстрация Pixel Streaming UE5 — 1 канал = 1 переговорная, бронирование конференции, возможность увеличения количества сессий, если поток возрос",
+      ],
+    },
     audience: ["Отдел продаж", "Горячие лиды", "Агенты"],
     previewVideoUrl: DEMO_VIDEO_URL,
     // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
@@ -119,7 +134,14 @@ export const systemModules: SystemModule[] = [
     id: "2",
     eyebrow: "О системе",
     title: "Интерактивный макет WEB",
-    description: "TODO: описание блока 2",
+    description: {
+      bullets: [
+        "Использует мощности индивидуального устройства, а не Pixel Streaming",
+        "Нет ограничений по количеству сессий",
+        "Интегрируется в сайт ЖК или доступ по ссылке",
+        "Обладает 90% функционала макета UE5",
+      ],
+    },
     audience: ["Отдел продаж", "Холодные лиды", "Горячие лиды", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
@@ -186,13 +208,19 @@ export const systemModules: SystemModule[] = [
     id: "3",
     eyebrow: "О системе",
     title: "Единая цифровая Экосистема",
-    description: "TODO: описание блока 3",
+    description: {
+      bullets: [
+        "«Мост» между WEB и UE5 макетом добавляет конверсии в посещения офиса продаж или записи на встречу, для более углублённого изучения понравившихся лотов",
+        "Сбор и обработка поведенческих данных сессий - «цифровой след» клиента для отдела продаж или агентов",
+        "Сохранение контекста поиска недвижимости покупателем в онлайн сессиях с учётом любого количества взаимодействий",
+      ],
+    },
     audience: ["Отдел продаж", "Агенты"],
     showDemoButton: false,
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
     // TODO: подставить реальную ссылку на бланк, когда файл будет готов
-    downloadLabel: "Смотреть результат",
+    downloadLabel: "Результат сессии",
     downloadHref: undefined,
     featuresHeading: "Что входит в проект?",
     features: [
@@ -219,7 +247,7 @@ export const systemModules: SystemModule[] = [
         icon: Building2,
       },
       {
-        title: "Срокинг",
+        title: "Скоринг",
         description: "Описание",
         icon: Building2,
       },
@@ -239,9 +267,15 @@ export const systemModules: SystemModule[] = [
     // TODO: заменить на реальные тексты/видео/карточки
     id: "4",
     eyebrow: "О системе",
-    title: "Удаленный офис продаж",
-    description: "TODO: описание блока 4",
-    audience: ["Отдел продаж", "Агенты"],
+    title: "Визуализация и Видеопродакшн",
+    description: {
+      bullets: [
+        "Создание Единой цифровой модели",
+        "Продажные Визуализации ЖК и Генпланы территорий",
+        "Полнометражный FullCGI и AI Видеопродакшн",
+      ],
+    },
+    audience: ["Отдел маркетинга", "Отдел продаж", "Агенты"],
     previewVideoUrl: undefined,
     modalVideoUrl: undefined,
     // TODO: тестовая ссылка на UE5 pixel-streaming, замените на боевую
@@ -249,19 +283,24 @@ export const systemModules: SystemModule[] = [
     featuresHeading: "Что входит в проект?",
     features: [
       {
-        title: "Pixel Streaming UE5 - 1 канал = 1 переговорная",
+        title: "Единая цифровая модель для всего контента",
         description: "Описание",
-        icon: Building2,
+        icon: FileBox,
       },
       {
-        title: "Бронирование конференции",
+        title: "Высококачественные Визуализации и Генпланы территорий",
         description: "Описание",
-        icon: Building2,
+        icon: Fence,
       },
       {
-        title: "Увеличение количества сессий, если поток возрос",
+        title: "Презентационный полнометражный видеофильм FullCGI, AI-Видео",
         description: "Описание",
-        icon: Building2,
+        icon: Film,
+      },
+      {
+        title: "АГР модель по новым требованиям",
+        description: "Описание",
+        icon: Rows3,
       },
     ],
   },
