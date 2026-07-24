@@ -42,7 +42,7 @@ export default function SystemPreview({
   const openDemo = useDemoAction({ previewVideoUrl, modalVideoUrl, streamUrl });
 
   return (
-    <section id={id} className="relative pt-28 min-[640px]:pt-36 min-[1536px]:pt-44 min-[1920px]:pt-52">
+    <section id={id} className="relative pt-16 min-[640px]:pt-20 min-[1536px]:pt-28 min-[1920px]:pt-36">
       <Container>
         <div className="grid grid-cols-1 gap-10 min-[1024px]:grid-cols-2 min-[1024px]:items-center min-[1536px]:gap-16">
           <Reveal className="relative">
